@@ -1,4 +1,28 @@
 Echef::Application.routes.draw do
+
+  get "pages/home"
+
+	root :to => "pages#home"
+
+  resources :complaints
+
+  resources :order_dishes
+
+  resources :orders
+
+  resources :bookings
+
+  resources :notifications
+
+  resources :tables
+
+  devise_for :users
+
+  resources :dishes
+
+  resources :dish_types
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

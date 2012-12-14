@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Closed at:</b>
+  <%= @order.closed_at %>
+</p>
+
+<p>
+  <b>Rating:</b>
+  <%= @order.rating %>
+</p>
+
+<p>
+  <b>Table:</b>
+  <%= @order.table %>
+</p>
+
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>
