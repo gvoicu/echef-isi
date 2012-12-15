@@ -1,6 +1,4 @@
 class BookingsController < ApplicationController
-  before_filter :authenticate_user!, :only => [:index]
-  
   # GET /bookings
   # GET /bookings.json
   def index
@@ -42,16 +40,36 @@ class BookingsController < ApplicationController
   # POST /bookings
   # POST /bookings.json
   def create
-    @booking = Booking.new(params[:booking])
-
-    respond_to do |format|
-      if @booking.save
-        format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
-        format.json { render json: @booking, status: :created, location: @booking }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @booking.errors, status: :unprocessable_entity }
+    if params[:booking]["name"]
+      
+      @booking = session[:booking]
+      @booking.attribute_names.each do |k|
+        if !params[:booking][k].nil?
+          @booking[k] = params[:booking][k]
+        end
       end
+      
+      # Replace table number with table object.      
+      @booking.table = Table.find(params[:booking][:table])
+  
+      respond_to do |format|
+        if @booking.save
+          format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
+          format.json { render json: @booking, status: :created, location: @booking }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @booking.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      
+      @booking = Booking.new(params[:booking])
+      session[:booking] = @booking
+      
+      respond_to do |format|
+        format.html { render action: "new" }
+      end
+      
     end
   end
 
