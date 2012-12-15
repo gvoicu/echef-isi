@@ -6,18 +6,18 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :u_type
   # attr_accessible :title, :body
   
   def admin?
-    return type == 1
+    return self.u_type == 1
   end
   
   def waiter?
-    return type == 2
+    return self.u_type == 2
   end
   
   def chef?
-    return type == 3
+    return self.u_type == 3
   end
 end

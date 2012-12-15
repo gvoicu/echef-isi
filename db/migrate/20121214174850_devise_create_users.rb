@@ -33,10 +33,10 @@ class DeviseCreateUsers < ActiveRecord::Migration
       ## Token authenticatable
       # t.string :authentication_token
 
-	## Other fields
-	t.string 	:name
-	t.string 	:phone
-	t.integer	:type
+    	## Other fields
+    	t.string 	:name
+    	t.string 	:phone
+    	t.integer	:u_type
 
       t.timestamps
     end
@@ -45,6 +45,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
     add_index :users, :reset_password_token, :unique => true
     # add_index :users, :confirmation_token,   :unique => true
     # add_index :users, :unlock_token,         :unique => true
-    # add_index :users, :authentication_token, :unique => true
+    # add_index :users, :authentication_token, :unique => true    
   end
 end

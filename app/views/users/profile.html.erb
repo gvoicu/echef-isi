@@ -1,0 +1,4 @@
+Hello, <%= current_user.name %>! <br/>
+Account type: <%= current_user.type %> <br/><br/>
+
+<%= link_to("Sign out", destroy_user_session_path, :method => :delete) %>

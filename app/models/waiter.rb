@@ -1,2 +1,0 @@
-class Waiter < User
-end

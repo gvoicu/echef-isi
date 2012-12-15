@@ -1,5 +1,7 @@
 Echef::Application.routes.draw do
 
+  get "users/profile"
+
   get "pages/home"
 
 	root :to => "pages#home"
