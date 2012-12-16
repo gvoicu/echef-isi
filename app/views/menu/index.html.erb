@@ -1,0 +1,31 @@
+<h1>Menu</h1>
+
+<table>
+  <tr>
+    <th>Ingredients</th>
+    <th>Grams</th>
+    <th>Price</th>
+    <th>Time</th>
+    <th>Dish type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @dishes.each do |dish| %>
+  <tr>
+    <td><%= dish.ingredients %></td>
+    <td><%= dish.grams %></td>
+    <td><%= dish.price %></td>
+    <td><%= dish.time %></td>
+    <td><%= dish.dish_type.name %></td>
+    <td><%= link_to 'Add', 'order/add/%s' % dish.id, method: :post %></td>
+  </tr>
+<% end %>
+</table>
+	
+	<td><%= link_to 'View Order', 'order', method: :get %></td>
+	
+	<td><%= link_to 'Cheama chelner', 'order/chelner', method: :post %></td>
+	
+<br />
