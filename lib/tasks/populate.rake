@@ -10,6 +10,7 @@ namespace :db do
       dt.name = Faker::Name.title
       Dish.populate 1..10 do |d|
         d.dish_type_id = dt.id
+        d.name = Faker::Name.title
         d.ingredients = Faker::Lorem.sentence(10)
         d.grams = Random.new.rand(50 .. 500)
         d.price = Random.new.rand(5 .. 50)
