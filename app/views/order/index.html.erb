@@ -1,0 +1,55 @@
+<h1>Order</h1>
+
+<table>
+  <tr>
+    <th>Ingredients</th>
+    <th>Grams</th>
+    <th>Price</th>
+    <th>Time</th>
+    <th>Dish type</th>
+    <th>Dish Status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @total = 0 %>
+<% @order_dishes.each do |dish| %>
+<% mDish = Dish.find(dish.dish_id)%>
+	<% @total += mDish.price %>
+  <tr>
+    <td><%= mDish.ingredients %></td>
+    <td><%= mDish.grams %></td>
+    <td><%= mDish.price %></td>
+    <td><%= dish.time %></td>
+    <td><%= mDish.dish_type.name %></td>
+    <% if dish.dish_status == 1 %>
+    	<% @to_send = 1 %>
+    	<td><%= "netrimis" %></td>
+    	<td><%= link_to 'Remove', 'order/remove/%s' % dish.id, method: :delete %></td>
+    <% elsif dish.dish_status == 2 %>
+    	<% @sent = 1 %>
+    	<td><%= "trimis" %></td>
+    <% elsif dish.dish_status == 3 %>
+    	<% @sent = 2 %>
+    	<td><%= "livrat" %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+	
+	<td><%= link_to 'Menu', 'menu', method: :get %></td>
+	<% if @sent == 1 && @sent == 2 && @to_send == 1%>
+		<td><%= link_to 'Update Order', 'order/send', method: :post %></td>
+	<% elsif @to_send == 1 %>
+		<td><%= link_to 'Send Order', 'order/send', method: :post %></td>
+	<% elsif @sent == 2%>
+		<td><%= link_to 'Nota', 'order/nota', method: :post %></td>
+	<% end %>
+	<td><%= link_to 'Cheama chelner', 'order/chelner', method: :post %></td>
+	
+<br />
+	
+	<td>Total: <%= @total %></td>
+	
+<br />
