@@ -27,6 +27,8 @@ class MenuController < ApplicationController
   
   # Add dish to order.
   def add
+    render :nothing => true 
+    
     dish = Dish.find(params[:dish_id])
     
     order_dish = OrderDish.new
@@ -40,9 +42,9 @@ class MenuController < ApplicationController
     
     order_dish.save
     
-    respond_to do |format|
-      format.html { redirect_to '/menu'}
-    end
+   # respond_to do |format|
+    #  format.html { redirect_to '/menu'}
+   # end
   end
   
 end

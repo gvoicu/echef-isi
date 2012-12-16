@@ -1,31 +1,72 @@
-<h1>Menu</h1>
+<div class="row">
+     <div class="span12">
+        
+        <!-- Careers starts -->
+        
+        <div class="career">
+           <div class="row">
+              <div class="span12">
+              
+              	<% if session[:order] %>
+              		<%= link_to 'View Order', 'order', method: :get %>
+					<%= link_to 'Cheama chelner', 'order/chelner', method: :post %>
+				<% end %>
+				   
+                    <div class="tabbable tabs-left">
+                       <!-- Tabs -->
+                      <ul class="nav nav-tabs">
+                        <!-- Navigation tabs (Job titles ). Use unique value in anchor tags. -->
+                        <% DishType.all.each do |dish_type|%>
+                        	<li><a href="#tab<%=dish_type.id %>" data-toggle="tab"><%= dish_type.name%></a></li>
+                        <% end %>
+                      </ul>
+                      <div class="tab-content">
+                      
+                      <% DishType.all.each do |dish_type| %>
+                       <!-- In "id", use the value which you used in above anchor tags -->
+                        <div class="tab-pane" id="tab<%=dish_type.id %>">
+                          <!-- Content -->
+                          <table>
+							  <tr>
+							  	<th>Name</th>
+							    <th>Ingredients</th>
+							    <th>Grams</th>
+							    <th>Price</th>
+							    <th>Time</th>
+							    <th></th>
+							    <th></th>
+							    <% if session[:order] %>
+							    	<th></th>
+							    <% end %>
+							  </tr>
+							  <% Dish.where(:dish_type_id => dish_type.id).each do |dish| %>
+								  <tr>
+								  	<td><%= dish.name %></td>
+								    <td><%= dish.ingredients %></td>
+								    <td><%= dish.grams %></td>
+								    <td><%= dish.price %></td>
+								    <td><%= dish.time %></td>
+								    <% if session[:order] %>
+								    	<td><div class="button"><%= link_to 'Add', 'order/add/%s' % dish.id, :class => 'add-in-order', :method => :post, :remote => true %></div></td>
+								   	<% end %>
+								  </tr>
+								<% end %>
+                        	</table>
+                        </div>
+                      <% end %>
+                      </div>
+                    </div>
+                 
+              </div>
+           </div>
+        </div>        
+     </div>
+  </div>
 
-<table>
-  <tr>
-    <th>Ingredients</th>
-    <th>Grams</th>
-    <th>Price</th>
-    <th>Time</th>
-    <th>Dish type</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @dishes.each do |dish| %>
-  <tr>
-    <td><%= dish.ingredients %></td>
-    <td><%= dish.grams %></td>
-    <td><%= dish.price %></td>
-    <td><%= dish.time %></td>
-    <td><%= dish.dish_type.name %></td>
-    <td><%= link_to 'Add', 'order/add/%s' % dish.id, method: :post %></td>
-  </tr>
-<% end %>
-</table>
-	
-	<td><%= link_to 'View Order', 'order', method: :get %></td>
-	
-	<td><%= link_to 'Cheama chelner', 'order/chelner', method: :post %></td>
-	
-<br />
+<script type="text/javascript" ">
+	$(function(){
+		$('.add-in-order').click(function(e){
+			e.preventDefault();
+		});
+	});
+</script>
