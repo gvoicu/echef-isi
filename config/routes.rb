@@ -18,8 +18,15 @@ Echef::Application.routes.draw do
 
   resources :tables
 
-  devise_for :users
-
+  devise_for :users, :skip => [:registrations]                                          
+    as :user do
+      get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
+      put 'users' => 'devise/registrations#update', :as => 'user_registration' 
+      get 'users' => 'users/admin#show', :as => 'users'
+      delete 'users/:id' => 'users/admin#destroy'
+      get 'user/new' => 'users/admin#new', :as => 'new_user'
+      post 'users' => 'users/admin#create'
+    end
   resources :dishes
 
   resources :dish_types

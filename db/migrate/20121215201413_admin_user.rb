@@ -1,6 +1,6 @@
 class AdminUser < ActiveRecord::Migration
   def up
-    User.create!(:email => 'admin@echef.com', :password => 'administrator', :u_type => '1')
+    User.create!(:name => 'Administrator', :email => 'admin@echef.com', :password => 'administrator', :u_type => '1')
   end
 
   def down

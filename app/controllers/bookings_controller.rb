@@ -1,4 +1,9 @@
 class BookingsController < ApplicationController
+  before_filter :authenticate_user!, :only => [:index]
+  before_filter :only => [:index], do 
+    redirect_to '/' unless current_user && current_user.admin?
+  end
+  
   # GET /bookings
   # GET /bookings.json
   def index

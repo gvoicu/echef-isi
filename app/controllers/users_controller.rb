@@ -1,9 +1,6 @@
 class UsersController < ApplicationController
-  def profile
-     
-  end
+  before_filter :authenticate_user!
   
-  def sign_up
-    
+  def profile   
   end
 end
