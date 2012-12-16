@@ -2,6 +2,8 @@ Echef::Application.routes.draw do
 
   get "users/profile"
 
+  match "/contact" => "pages#contact"
+
   get "pages/home"
 
 	root :to => "pages#home"

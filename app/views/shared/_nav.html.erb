@@ -1,0 +1,47 @@
+<!-- Navigation Starts -->
+
+<!-- Note down the syntax before editing. It is the default twitter bootstrap navigation -->
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            Menu
+          </a>
+          <div class="nav-collapse">
+            <!-- Navigation links starts here -->
+            <ul class="nav">
+              <!-- Main menu -->
+              <% if current_user and current_user.admin? %>
+              	<li><%= link_to("Bookings", bookings_path, :method => :get) %></li>
+              	<li><%= link_to("Menu", dishes_path, :method => :get)%></li>
+              	<li><%= link_to("Tables", tables_path, :method => :get) %></li>
+              	<li><%= link_to("Users", users_path, :method => :get) %></li>
+              	<li><%= link_to("Sign out", destroy_user_session_path, :method => :delete) %></li>
+              <% elsif current_user and current_user.waiter? %>
+              	<li><%= link_to("Bookings", bookings_path, :method => :get) %></li>
+              	<li><%= link_to("Menu", dishes_path, :method => :get)%></li>
+              	<li><%= link_to("Tables", tables_path, :method => :get) %></li>
+              	<li><%= link_to("Users", users_path, :method => :get) %></li>
+              	<li><%= link_to("Sign out", destroy_user_session_path, :method => :delete) %></li>
+              <% elsif current_user and current_user.chef? %>
+              	<li><%= link_to("Bookings", bookings_path, :method => :get) %></li>
+              	<li><%= link_to("Menu", dishes_path, :method => :get)%></li>
+              	<li><%= link_to("Tables", tables_path, :method => :get) %></li>
+              	<li><%= link_to("Users", users_path, :method => :get) %></li>
+              	<li><%= link_to("Sign out", destroy_user_session_path, :method => :delete) %></li>
+              <% else %>
+	              <li><a href="/menu">Menu</a></li>
+	              <li><a href="/gallery">Gallery</a></li>
+	              <li><a href="/bookings/new">Make a booking</a></li>
+	              <li><a href="/contact#complaints">Complaints</a></li>
+				  <li><a href="/users/sign_in">Admin</a></li>
+				  <li><a href="/contact">Contact</a></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+<!-- Navigation Ends -->

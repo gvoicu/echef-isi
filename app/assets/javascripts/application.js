@@ -12,4 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require theme/bootstrap
+//= require theme/jquery.flexslider-min
+//= require theme/jquery.isotope
+//= require theme/jquery.prettyPhoto
+//= require theme/filter
+//= require theme/jquery.tweet
+//= require theme/custom
 //= require_tree .
+	
