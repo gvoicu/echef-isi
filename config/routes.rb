@@ -15,6 +15,8 @@ Echef::Application.routes.draw do
   get "users/profile"
 
   match "/contact" => "pages#contact"
+  
+  match "/gallery" => "pages#gallery"
 
   get "pages/home"
 

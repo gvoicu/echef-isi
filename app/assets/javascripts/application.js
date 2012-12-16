@@ -19,5 +19,4 @@
 //= require theme/filter
 //= require theme/jquery.tweet
 //= require theme/custom
-//= require_tree .
 	

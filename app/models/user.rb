@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :u_type, :name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :u_type, :name, :username
   # attr_accessible :title, :body
   
   def admin?
@@ -19,5 +19,9 @@ class User < ActiveRecord::Base
   
   def chef?
     return self.u_type == 3
+  end
+  
+  def email_required?
+    false
   end
 end

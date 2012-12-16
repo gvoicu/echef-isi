@@ -53,7 +53,7 @@ $('#filters a').click(function(){
   return false;
 });
 
-
-jQuery("a[class^='prettyPhoto']").prettyPhoto({
+$(function(){
+$("a[class^='prettyPhoto']").prettyPhoto({
 overlay_gallery: false, social_tools: false
-});
+});});

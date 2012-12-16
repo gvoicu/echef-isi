@@ -6,15 +6,15 @@ namespace :db do
     
     [OrderDish, Order, Table, Notification, Booking, Complaint, Dish, DishType].each(&:delete_all)
     
-    DishType.populate 3 do |dt|
+    DishType.populate 5 do |dt|
       dt.name = Faker::Name.title
-      Dish.populate 1..10 do |d|
+      Dish.populate 1..15 do |d|
         d.dish_type_id = dt.id
         d.name = Faker::Name.title
         d.ingredients = Faker::Lorem.sentence(10)
-        d.grams = Random.new.rand(50 .. 500)
-        d.price = Random.new.rand(5 .. 50)
-        d.time = Random.new.rand(5 .. 30)
+        d.grams = 50 .. 500
+        d.price = 5 .. 50
+        d.time = 5 .. 30
       end
     end
     
