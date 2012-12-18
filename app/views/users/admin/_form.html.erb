@@ -52,6 +52,13 @@
    	</div>
   </div>
   
+  <div class="control-group">
+    <%= f.label "User type", :class => "control-label"  %>
+    <div class="controls">
+    	<%= f.select :u_type, 'Admin' => 1, 'Chef' => 2, 'Waiter' => 3 %>
+   	</div>
+  </div>
+  
   <div class="form-actions">
     <%= f.button "Create", :class => "btn", :type => "submit" %>
   </div>
