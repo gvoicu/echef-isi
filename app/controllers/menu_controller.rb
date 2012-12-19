@@ -2,6 +2,10 @@ class MenuController < ApplicationController
   
   def index
      @dishes = Dish.all
+     
+     if order = session[:order]
+      @notif = Notification.find_by_table_id(order.table_id)
+     end
 
     respond_to do |format|
       format.html # index.html.erb

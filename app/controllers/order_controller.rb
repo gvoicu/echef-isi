@@ -4,6 +4,8 @@ class OrderController < ApplicationController
      order = session[:order]
      
      @order_dishes = OrderDish.where("order_id = ?", order.id)
+     
+     @notif = Notification.find_by_table_id(order.table_id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -35,6 +37,21 @@ class OrderController < ApplicationController
     
     respond_to do |format|
       format.html { redirect_to '/order'}
+    end
+  end
+  
+  # Call waiter.
+  def call_waiter
+    order = session[:order]
+    
+    notif = Notification.new
+    notif.table_id = order.table_id
+    notif.note = "call"
+    
+    notif.save
+    
+    respond_to do |format|
+      format.js
     end
   end
   

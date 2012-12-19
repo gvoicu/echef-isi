@@ -10,6 +10,8 @@ Echef::Application.routes.draw do
   
   match "/order/send" => "order#send_order"
   
+  match "/order/waiter" => "order#call_waiter"
+  
   match "/order" => "order#index"
 
   get "users/profile"
