@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+  	<th>Name</th>
     <th>Ingredients</th>
     <th>Grams</th>
     <th>Price</th>
@@ -14,47 +15,73 @@
   </tr>
 
 <% @total = 0 %>
+<% @on_check = 0 %>
+<% @subtotal = 0 %>
 <% @order_dishes.each do |dish| %>
 <% mDish = Dish.find(dish.dish_id)%>
 	<% @total += mDish.price %>
   <tr>
+  	<td><%= mDish.name %></td>
     <td><%= mDish.ingredients %></td>
     <td><%= mDish.grams %></td>
     <td><%= mDish.price %></td>
     <td><%= dish.time %></td>
     <td><%= mDish.dish_type.name %></td>
+    
     <% if dish.dish_status == 1 %>
     	<% @to_send = 1 %>
-    	<td><%= "netrimis" %></td>
+    	<td><%= "unsent" %></td>
     	<td><%= link_to 'Remove', 'order/remove/%s' % dish.id, method: :delete %></td>
     <% elsif dish.dish_status == 2 %>
     	<% @sent = 1 %>
-    	<td><%= "trimis" %></td>
+    	<td class="check"><%= "sent" %></td>
     <% elsif dish.dish_status == 3 %>
     	<% @sent = 2 %>
-    	<td><%= "livrat" %></td>
+    	<td class="check"><%= "prepared" %></td>
+    <% elsif dish.dish_status == 4 %>
+    	<% @sent = 3 %>
+    	<td class="check"><%= "deliverd" %></td>
+    <% elsif dish.dish_status == 5 %>
+    	<% @sent = 4 %>
+    	<td><%= "check" %></td>
+    	<% @on_check += mDish.price %>
+    <% elsif dish.dish_status == 6 %>
+    	<% @sent = 5 %>
+    	<td><%= "payed" %></td>
+    <% end %>
+    
+    <% if @sent != 4 %>
+    	<% @subtotal += mDish.price %>
     <% end %>
   </tr>
 <% end %>
 </table>
 	
 	<%= link_to 'Menu', 'menu', method: :get %>
-	<% if (@sent == 1 || @sent == 2) && @to_send == 1%>
+	<% if !@sent.nil? && @to_send == 1%>
 		<%= link_to 'Update Order', 'order/send', method: :post %>
 	<% elsif @to_send == 1 %>
 		<%= link_to 'Send Order', 'order/send', method: :post %>
-	<% elsif @sent == 2%>
-		<%= link_to 'Nota', 'order/nota', method: :post %>
 	<% end %>
 	
-	<% if @notif %>
+	<% if @waiter.any? %>
 		<p>Waiter called.</p>
 	<% elsif %>
 		<p id="call-waiter"><%= link_to 'Call waiter', 'order/waiter', method: :post, :remote => true %></p>
 	<% end %>
 	
+	<% if @order_dishes.any? && @subtotal == 0 %>
+		<p>Check requested.</p>
+	<% elsif @order_dishes.any? && @subtotal != 0 %>
+		<p id="request-check"><%= link_to 'Request check', 'order/check', method: :post, :remote => true %></p>
+	<% end %>
+	
 <br />
 	
-	Total: <%= @total %>
+	Subtotal: <span id="subtotal"><%= @subtotal %></span>
+	<br/>
+	On Check: <span id="on-check"><%= @on_check %></span>
+	<br/>
+	Total: <span id="total"><%= @total %></span>
 	
 <br />

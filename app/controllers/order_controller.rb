@@ -5,7 +5,8 @@ class OrderController < ApplicationController
      
      @order_dishes = OrderDish.where("order_id = ?", order.id)
      
-     @notif = Notification.find_by_table_id(order.table_id)
+     # Waiter was called.
+     @waiter = Notification.where(:table_id => order.table_id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -46,9 +47,45 @@ class OrderController < ApplicationController
     
     notif = Notification.new
     notif.table_id = order.table_id
-    notif.note = "call"
-    
     notif.save
+    
+    respond_to do |format|
+      format.js
+    end
+  end
+  
+  # Request check.
+  def request_check
+    order = session[:order]
+    
+    notif = Notification.new
+    notif.table_id = order.table_id
+    notif.save
+    
+    @total = 0
+    @subtotal = 0
+    @on_check = 0
+    
+    # Mark OrderDishes as checked.
+    order_dishes = OrderDish.where("order_id = ?", order.id)
+    order_dishes.each do |dish|
+      mDish = Dish.find(dish.dish_id)
+      @total += mDish.price
+      
+      # 5 = check
+      if dish.dish_status > 1 && dish.dish_status < 5
+        dish.dish_status = 5
+        dish.save
+      end
+      
+      if dish.dish_status == 1
+        @subtotal += mDish.price
+      end
+      
+      if dish.dish_status == 5
+        @on_check += mDish.price
+      end
+    end
     
     respond_to do |format|
       format.js
