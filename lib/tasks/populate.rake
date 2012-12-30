@@ -3,9 +3,9 @@ namespace :db do
   task :populate => :environment do
     require 'populator'
     require 'faker'
-    
+
     [OrderDish, Order, Table, Notification, Booking, Complaint, Dish, DishType].each(&:delete_all)
-    
+
     DishType.populate 5 do |dt|
       dt.name = Populator.words(2).capitalize
       Dish.populate 15 do |d|
@@ -17,13 +17,13 @@ namespace :db do
         d.time = 5 .. 30
       end
     end
-    
+
     i = 0
     Table.populate 5 do |t|
       i = i + 1
       t.number = i
       t.qr_code = '111%s' % i 
     end
-    
+
   end
 end

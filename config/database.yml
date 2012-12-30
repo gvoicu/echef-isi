@@ -8,7 +8,7 @@ development:
   encoding: unicode
   database: echef
   pool: 5
-  username: echef
+  username: gabriel
   password:
   timeout: 5000
 

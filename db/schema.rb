@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121216175824) do
+ActiveRecord::Schema.define(:version => 20121230204624) do
 
   create_table "bookings", :force => true do |t|
     t.datetime "start"
@@ -83,8 +83,9 @@ ActiveRecord::Schema.define(:version => 20121216175824) do
     t.integer  "table_id"
     t.integer  "waiter_id"
     t.integer  "chef_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "order_status"
   end
 
   add_index "orders", ["chef_id"], :name => "index_orders_on_chef_id"

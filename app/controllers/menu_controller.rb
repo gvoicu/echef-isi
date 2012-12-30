@@ -2,6 +2,7 @@ class MenuController < ApplicationController
   
   def index
      @dishes = Dish.all
+     @dish_types = DishType.includes(:dishes).all
 
     respond_to do |format|
       format.html # index.html.erb

@@ -80,4 +80,10 @@ class OrderDishesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def change_status
+    order_d = OrderDish.find(params[:id])
+    order_d.update_attributes(:dish_status => params[:dish_status])
+    render "1".to_json
+  end
 end

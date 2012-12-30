@@ -80,4 +80,19 @@ class DishesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def mark_dishes_as_preparing
+    @dishes = OrderDish.find(params[:dish_ids]).update_all(:dish_status => Constant::DS_PREPARING)
+    redirect_to "/dishes"
+  end
+
+  def mark_dishes_as_ready
+    @dishes = OrderDish.find(params[:dish_ids]).update_all(:dish_status => Constant::DS_READY)
+    redirect_to "/dishes"
+  end
+
+  def mark_dishes_as_delivered
+    @dishes = OrderDish.find(params[:dish_ids]).update_all(:dish_status => Constant::DS_DELIVERED)
+    redirect_to "/dishes"
+  end
 end

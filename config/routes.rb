@@ -5,17 +5,15 @@ Echef::Application.routes.draw do
   match "/menu/:qr" => "menu#table"
 
   match "/order/add/:dish_id" => "menu#add"
-  
+
   match "/order/remove/:dish_id" => "order#remove"
-  
+
   match "/order/send" => "order#send_order"
-  
   match "/order" => "order#index"
 
   get "users/profile"
 
   match "/contact" => "pages#contact"
-  
   match "/gallery" => "pages#gallery"
 
   get "pages/home"
