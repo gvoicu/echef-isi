@@ -5,7 +5,15 @@ class TablesController < ApplicationController
     @tables = Table.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html do
+        if current_user.waiter?
+          render "waiter_tables_index"
+        elsif current_user.chef?
+          render "chef_tables_index"
+        else
+          render "index"
+        end
+      end
       format.json { render json: @tables }
     end
   end

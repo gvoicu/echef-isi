@@ -1,0 +1,35 @@
+<h1>Tables</h1>
+
+<table>
+  <tr>
+    <th>Number</th>
+    <th>Qr code</th>
+    <th>Persons</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tables.each do |table| %>
+  <tr>
+    <td><%= table.number %></td>
+    <td><%= table.qr_code %></td>
+    <td><%= table.persons %></td>
+    <td><%= link_to 'Show', table %></td>
+    <td><%= link_to 'Edit', edit_table_path(table) %></td>
+    <td><%= link_to 'Destroy', table, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+      <% table.get_active_orders.each do |order| %>
+        <p><%= link_to "Order #{order.id}", "/orders/#{order.id}" %></p>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Table', new_table_path %>

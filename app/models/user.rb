@@ -26,6 +26,10 @@ class User < ActiveRecord::Base
     return self.u_type == User::CHEF
   end
 
+  def client?
+    return (self.u_type == User::CLIENT || self.u_type.nil?)
+  end
+
   def email_required?
     false
   end

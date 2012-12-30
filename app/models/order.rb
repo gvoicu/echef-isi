@@ -6,5 +6,9 @@ class Order < ActiveRecord::Base
   has_many :order_dishes
   has_many :dishes, :through => :order_dishes
 
-  attr_accessible :closed_at, :rating
+  attr_accessible :closed_at, :rating, :table_id
+
+  def calculate_total_sum
+    self.dishes.sum(:price)
+  end
 end

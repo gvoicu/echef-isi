@@ -41,10 +41,14 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(params[:order])
+    @order.order_status = Constant::ORDER_OPEN
+
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        @order.order_dishes.create(:dish_id => params[:order_dish][:dish_id])
+
+        format.html { redirect_to "/orders/#{@order.id}", notice: 'Order was successfully created.' }
         format.json { render json: @order, status: :created, location: @order }
       else
         format.html { render action: "new" }
