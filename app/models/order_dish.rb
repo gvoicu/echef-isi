@@ -2,6 +2,8 @@ class OrderDish < ActiveRecord::Base
   belongs_to :order
   belongs_to :dish
   attr_accessible :dish_status, :note, :time, :dish_id, :order_id
+  default_scope :order => "dish_status ASC"
+
   DS_PENDING   = 1
   DS_PREPARING = 2
   DS_READY     = 3

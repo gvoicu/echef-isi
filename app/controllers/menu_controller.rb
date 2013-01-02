@@ -4,6 +4,10 @@ class MenuController < ApplicationController
      @dishes = Dish.all
      @dish_types = DishType.includes(:dishes).all
 
+     if order = session[:order]
+      @notif = Notification.find_by_table_id(order.table_id)
+     end
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @dishes }
