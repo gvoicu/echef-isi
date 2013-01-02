@@ -43,7 +43,6 @@ class OrdersController < ApplicationController
     @order = Order.new(params[:order])
     @order.order_status = Constant::ORDER_OPEN
 
-
     respond_to do |format|
       if @order.save
         @order.order_dishes.create(:dish_id => params[:order_dish][:dish_id])
