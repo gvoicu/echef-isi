@@ -36,42 +36,42 @@
                                 <hr />
                                 <div class="form">
                                   <!-- Contact form (not working)-->
-                                  <form class="form-horizontal">
+                                  <%= form_for Complaint.new, :html => {:class => 'horizontal-form'} do |f| %>
                                       <!-- Name -->
                                       <div class="control-group">
                                         <label class="control-label" for="name">Name</label>
                                         <div class="controls">
-                                          <input type="text" class="input-medium" id="name">
+                                        	<%= f.text_field :name, :class => 'input-medium', :id => 'name' %>
                                         </div>
                                       </div>
                                       <!-- Email -->
                                       <div class="control-group">
                                         <label class="control-label" for="email">Email</label>
                                         <div class="controls">
-                                          <input type="text" class="input-medium" id="email">
+                                          <%= f.text_field :email, :class => 'input-medium', :id => 'email' %>
                                         </div>
                                       </div>
-                                      <!-- Website -->
+                                      <!-- Phone -->
                                       <div class="control-group">
-                                        <label class="control-label" for="website">Website</label>
+                                        <label class="control-label" for="website">Phone</label>
                                         <div class="controls">
-                                          <input type="text" class="input-medium" id="website">
+                                          <%= f.text_field :phone, :class => 'input-medium', :id => 'phone' %>
                                         </div>
                                       </div>
                                       <!-- Comment -->
                                       <div class="control-group">
                                         <label class="control-label" for="comment">Comment</label>
                                         <div class="controls">
-                                          <textarea class="input-madium" id="comment" rows="3"></textarea>
+                                          <%= f.text_field :body, :class => 'input-medium', :id => 'body' %>
                                         </div>
                                       </div>
                                       <!-- Buttons -->
                                       <div class="form-actions">
                                          <!-- Buttons -->
-                                        <button type="submit" class="btn">Submit</button>
+                                        <button type="submit" class="btn">Submit<% f.submit %></button>
                                         <button type="reset" class="btn">Reset</button>
                                       </div>
-                                  </form>
+                                  <% end %>
                                 </div>
                              </div>
                        </div>

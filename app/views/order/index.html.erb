@@ -28,29 +28,29 @@
     <td><%= dish.time %></td>
     <td><%= mDish.dish_type.name %></td>
     
-    <% if dish.dish_status == 1 %>
+    <% if dish.is_pending? %>
     	<% @to_send = 1 %>
-    	<td><%= "unsent" %></td>
+    	<td><%= "pending" %></td>
     	<td><%= link_to 'Remove', 'order/remove/%s' % dish.id, method: :delete %></td>
-    <% elsif dish.dish_status == 2 %>
+    <% elsif dish.is_preparing? %>
     	<% @sent = 1 %>
-    	<td class="check"><%= "sent" %></td>
-    <% elsif dish.dish_status == 3 %>
-    	<% @sent = 2 %>
-    	<td class="check"><%= "prepared" %></td>
-    <% elsif dish.dish_status == 4 %>
-    	<% @sent = 3 %>
+    	<td class="check"><%= "preparing" %></td>
+    <% elsif dish.is_ready? %>
+    	<% @sent = 1 %>
+    	<td class="check"><%= "ready" %></td>
+    <% elsif dish.is_delivered? %>
+    	<% @sent = 1 %>
     	<td class="check"><%= "deliverd" %></td>
-    <% elsif dish.dish_status == 5 %>
-    	<% @sent = 4 %>
+    <% elsif dish.is_check? %>
+    	<% @sent = 2 if @sent != 1%>
     	<td><%= "check" %></td>
     	<% @on_check += mDish.price %>
-    <% elsif dish.dish_status == 6 %>
-    	<% @sent = 5 %>
+    <% elsif dish.is_payed? %>
+    	<% @sent = 2 if @sent != 1 %>
     	<td><%= "payed" %></td>
     <% end %>
     
-    <% if @sent != 4 %>
+    <% if !dish.is_check? %>
     	<% @subtotal += mDish.price %>
     <% end %>
   </tr>
@@ -72,7 +72,7 @@
 	
 	<% if @order_dishes.any? && @subtotal == 0 %>
 		<p>Check requested.</p>
-	<% elsif @order_dishes.any? && @subtotal != 0 %>
+	<% elsif @order_dishes.any? && @subtotal != 0 && @sent == 1%>
 		<p id="request-check"><%= link_to 'Request check', 'order/check', method: :post, :remote => true %></p>
 	<% end %>
 	

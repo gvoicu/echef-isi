@@ -26,4 +26,12 @@ class OrderDish < ActiveRecord::Base
   def is_delivered?
     self.dish_status == Constant::DS_DELIVERED
   end
+  
+  def is_check?
+    self.dish_status == Constant::DS_CHECK
+  end
+  
+  def is_payed?
+    self.dish_status == Constant::DS_PAYED
+  end
 end
