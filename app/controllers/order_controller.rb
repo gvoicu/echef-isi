@@ -32,7 +32,7 @@ class OrderController < ApplicationController
     order_dish = OrderDish.where("order_id = ? AND dish_status = ?", order.id, Constant::DS_PENDING)
 
     order_dish.each do |od|
-      od.dish_status = Constant::PREPARING
+      od.dish_status = Constant::DS_PREPARING
       od.save
     end
 
