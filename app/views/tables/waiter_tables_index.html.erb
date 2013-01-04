@@ -19,14 +19,21 @@
     <td><%= link_to 'Edit', edit_table_path(table) %></td>
     <td><%= link_to 'Destroy', table, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
-  <tr>
-    <td></td>
-    <td>
-      <% table.get_active_orders.each do |order| %>
-        <p><%= link_to "Order #{order.id}", "/orders/#{order.id}" %></p>
-      <% end %>
-    </td>
-  </tr>
+  <% active_orders = table.get_active_orders %>
+  <% if active_orders.present? %>
+    <tr>
+      <td></td>
+      <td>
+        <% active_orders.each do |order| %>
+          <p><%= link_to "Order #{order.id}", "/orders/#{order.id}" %></p>
+        <% end %>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  <% end %>
 <% end %>
 </table>
 

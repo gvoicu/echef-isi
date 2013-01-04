@@ -7,7 +7,11 @@ module OrdersHelper
     elsif order_dish.is_preparing?
       link_to "Mark as ready", "/mark_dishes_as_ready?order_dish_id=#{order_dish.id}"
     elsif order_dish.is_ready?
-      link_to "Mark as delivered", "/mark_dishes_as_delivered?order_dish_id=#{order_dish.id}"
+      if current_user.waiter?
+        link_to "Mark as delivered", "/mark_dishes_as_delivered?order_dish_id=#{order_dish.id}"
+      else
+        "<b>Is ready</b>"
+      end
     else
       "<b>Delivered</b>"
     end

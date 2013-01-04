@@ -1,43 +1,44 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>e-Chef</title>
-  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
-  
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-  
-  <!-- HTML5 Support for IE -->
-  <!--[if lt IE 9]>
-  <script src="js/html5shim.js"></script>
-  <![endif]-->
-  
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="/favicon.png">
-</head>
-<body>
+  <head>
+    <title>e-Chef</title>
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
 
-  <%= render :partial =>  "/shared/header"%>
-  <%= render :partial => "/shared/nav"%>
-<div class="content">
-	<div class="container">
-		<%= yield %>
-	</div>
-</div>
-<%= render "/shared/footer"%>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
 
-<script type="text/javascript">
-	$(window).load(function() {
-	  $('.flexslider').flexslider({
-	    animation: "slide",
-	    controlNav: true,
-	    pauseOnHover: true,
-	    slideshowSpeed: 15000
-	  });
-	});
-</script>
+    <!-- HTML5 Support for IE -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shim.js"></script>
+    <![endif]-->
 
-</body>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/favicon.png">
+  </head>
+  <body>
+
+    <%= render :partial =>  "/shared/header"%>
+    <%= render :partial => "/shared/nav"%>
+
+    <div class="content">
+      <div class="container">
+        <%= yield %>
+      </div>
+    </div>
+
+    <%= render "/shared/footer"%>
+
+    <script type="text/javascript">
+      $(window).load(function() {
+        $('.flexslider').flexslider({
+          animation: "slide",
+          controlNav: true,
+          pauseOnHover: true,
+          slideshowSpeed: 15000
+        });
+      });
+    </script>
+  </body>
 </html>

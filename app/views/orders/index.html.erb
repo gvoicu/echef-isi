@@ -6,6 +6,7 @@
 
 <table>
   <tr>
+    <th>Open at</th>
     <th>Closed at</th>
     <th>Table Number</th>
     <th></th>
@@ -15,11 +16,12 @@
 
 <% @orders.each do |order| %>
   <tr>
-    <td><%= order.closed_at %></td>
+    <td><%= order.created_at %></td>
+    <td><%= order.closed_at || "Still open" %></td>
     <td><center><%= order.table.number %></center></td>
     <td><%= link_to 'Show', "/orders/#{order.id}" %></td>
     <td><%= link_to 'Edit', edit_order_path(order) %></td>
-    <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Destroy', "/orders/#{order.id}", method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>

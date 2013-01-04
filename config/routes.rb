@@ -14,6 +14,8 @@ Echef::Application.routes.draw do
 
   match "/order" => "order#index"
 
+  match "/mark_as_payed" => "orders#mark_as_payed"
+
   get "users/profile"
 
   match "/contact" => "pages#contact"
@@ -32,6 +34,7 @@ Echef::Application.routes.draw do
   resources :bookings
 
   resources :notifications
+  match "/mark_noti_as_done" => "notifications#mark_as_done"
 
   resources :tables
 

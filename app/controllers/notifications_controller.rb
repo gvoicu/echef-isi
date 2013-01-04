@@ -80,4 +80,14 @@ class NotificationsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def mark_as_done
+    noti = Notification.find(params[:id])
+    noti.mark_as_done
+
+    respond_to do |format|
+      format.html { redirect_to "/notifications" }
+      format.js
+    end
+  end
 end

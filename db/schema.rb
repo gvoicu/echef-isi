@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121230204624) do
+ActiveRecord::Schema.define(:version => 20130104200658) do
 
   create_table "bookings", :force => true do |t|
     t.datetime "start"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20121230204624) do
     t.integer  "table_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.boolean  "status"
   end
 
   add_index "notifications", ["table_id"], :name => "index_notifications_on_table_id"

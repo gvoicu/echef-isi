@@ -3,31 +3,38 @@
 
 <br />
 
-Total Sum: <%= @order.calculate_total_sum %>
-<%= link_to "Payed", "/mark_as_payed" %>
+<% if current_user.waiter? %>
+  Total Sum: <%= @order.calculate_total_sum %>
 
-<br />
+  <% if @order.is_payed? %>
+    Payed
+  <% else %>
+    <%= link_to "Mark as Payed", "/mark_as_payed?id=#{@order.id}" %>
+  <% end %>
 
-<p id="notice"><%= notice %></p>
+  <br />
 
-<p>
-  <b>Closed at:</b>
-  <%= @order.closed_at %>
-</p>
+  <p id="notice"><%= notice %></p>
 
-<% if @order.rating %>
   <p>
-    <b>Rating:</b>
-    <%= @order.rating %>
+    <b>Closed at:</b>
+    <%= @order.closed_at %>
   </p>
+
+  <% if @order.rating %>
+    <p>
+      <b>Rating:</b>
+      <%= @order.rating %>
+    </p>
+  <% end %>
+
+  <p>
+    <b>Table:</b>
+    <%= @order.table.number %>
+  </p>
+
+  <br />
 <% end %>
-
-<p>
-  <b>Table:</b>
-  <%= @order.table.number %>
-</p>
-
-<br />
 
 <p>
   <b>Dishes</b>

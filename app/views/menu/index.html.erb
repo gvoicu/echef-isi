@@ -10,11 +10,19 @@
               	<% if session[:order] %>
               		<%= link_to 'View Order', 'order', method: :get %>
 
-              		<% if @notif %>
-										<p>Waiter called.</p>
+                  <% if @order.is_payed? %>
+                    <br />
+                    <strong>Order is closed. Please open another order</strong>
+
+                    <br />
+                    <br />
                   <% else %>
-                    <p id="call-waiter"><%= link_to 'Call waiter', 'order/waiter', :method => :post, :remote => true %></p>
-									<% end %>
+                    <% if @order.table.has_notification? %>
+                      <p>Waiter called.</p>
+                    <% elsif %>
+                      <p id="call-waiter"><%= link_to 'Call waiter', 'order/waiter', method: :post, :remote => true %></p>
+                    <% end %>
+                  <% end %>
 								<% end %>
 				
                 <div class="tabbable tabs-left">
