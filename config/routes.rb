@@ -22,6 +22,10 @@ Echef::Application.routes.draw do
   match "/gallery" => "pages#gallery"
 
   get "pages/home"
+  
+  get "/qr/:qr_code" => "qr#index"
+  
+  post "/tables/change_qr/:table_id" => "tables#change_qr"
 
 	root :to => "pages#home"
 

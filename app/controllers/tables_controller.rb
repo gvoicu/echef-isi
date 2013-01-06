@@ -90,4 +90,14 @@ class TablesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def change_qr
+    table = Table.find(params[:table_id])
+    table.qr_code = SecureRandom.hex(10)
+    table.save
+    
+    respond_to do |format|
+      format.html {redirect_to '/tables'}
+    end
+  end
 end
