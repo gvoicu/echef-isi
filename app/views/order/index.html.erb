@@ -66,7 +66,7 @@
 		<%= link_to 'Send Order', 'order/send', method: :post %>
 	<% end %>
 	
-  <% if @order.is_payed? %>
+  <% if !@order.is_open? %>
     <strong>Order is closed. Please open another order</strong>
     <br />
     <br />

@@ -18,10 +18,20 @@ class Order < ActiveRecord::Base
   end
 
   def is_payed?
-    if self.order_dishes.present?
-      self.order_dishes.last.dish_status == Constant::DS_PAYED
+    unpaid = OrderDish.where("order_id = ? AND dish_status != ?", self.id, Constant::DS_PAYED)
+    if unpaid.any?
+      return false
     else
-      false
+      return true
     end
   end
+  
+  def is_open?
+    if self.closed_at
+      return false
+    else
+      return true 
+    end
+  end
+  
 end
