@@ -84,10 +84,25 @@ class NotificationsController < ApplicationController
   def mark_as_done
     noti = Notification.find(params[:id])
     noti.mark_as_done
+    
+    @id = noti.id
 
     respond_to do |format|
       format.html { redirect_to "/notifications" }
       format.js
     end
+  end
+  
+  def count
+    @notifications = Notification.where(:status => false)
+    @notifications = @notifications.count
+    
+    render :layout => false
+  end
+  
+  def refresh
+    @notifications = Notification.where(:status => false)
+    
+    render :layout => false
   end
 end
