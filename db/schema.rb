@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130104200658) do
+ActiveRecord::Schema.define(:version => 20130106230754) do
 
   create_table "bookings", :force => true do |t|
     t.datetime "start"
@@ -48,9 +48,13 @@ ActiveRecord::Schema.define(:version => 20130104200658) do
     t.float    "price"
     t.integer  "time"
     t.integer  "dish_type_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.string   "name"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   add_index "dishes", ["dish_type_id"], :name => "index_dishes_on_dish_type_id"
