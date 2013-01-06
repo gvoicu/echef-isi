@@ -16,7 +16,7 @@ class MenuController < ApplicationController
   def table
     qr_table    = Table.find_by_qr_code(params[:qr])
 
-    order = qr_table.orders.last || Order.find_by_id(session[:order_id])
+    order = qr_table.get_active_orders.last || Order.find_by_id(session[:order_id])
     create_order(qr_table) if order.present? && order.is_payed?
 
     respond_to do |format|
