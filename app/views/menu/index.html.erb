@@ -7,6 +7,7 @@
            <div class="row">
               <div class="span12">
 
+              <% if false %>
               	<% if session[:order_id] %>
               		<%= link_to 'View Order', 'order', method: :get %>
 
@@ -24,6 +25,17 @@
                     <% end %>
                   <% end %>
 								<% end %>
+              <% end %>
+
+              <% if @order %>
+                      <%= link_to 'View Order', 'order', method: :get %>
+
+                        <% if @notif %>
+                          <p>Waiter called.</p>
+                        <% elsif %>
+                          <p id="call-waiter"><%= link_to 'Call waiter', 'order/waiter', method: :post, :remote => true %></p>
+                        <% end %>
+              <% end %>
 				
                 <div class="tabbable tabs-left">
                    <!-- Tabs -->
@@ -39,26 +51,53 @@
 	                    <div class="tab-pane" id="tab<%=dish_type.id %>">
 	                      <!-- Content -->
 	                      <table>
-												  <tr>
-												  	<th>Name</th>
-												    <th>Ingredients</th>
-												    <th>Grams</th>
-												    <th>Price</th>
-												    <th>Time</th>
-												    <th></th>
-												    <th></th>
-                            <th></th>
-												  </tr>
-												  <% Dish.where(:dish_type_id => dish_type.id).each do |dish| %>
-													  <tr>
-													  	<td><%= dish.name %></td>
-													    <td><%= dish.ingredients %></td>
-													    <td><%= dish.grams %></td>
-													    <td><%= dish.price %></td>
-													    <td><%= dish.time %></td>
-                              <td><div class="button"><%= link_to 'Add', 'order/add/%s' % dish.id, :class => 'add-in-order', :method => :post, :remote => true %></div></td>
-													  </tr>
-													<% end %>
+
+                        <% if false %>
+                                <tr>
+                                  <th>Name</th>
+                                  <th>Ingredients</th>
+                                  <th>Grams</th>
+                                  <th>Price</th>
+                                  <th>Time</th>
+                                  <th></th>
+                                  <th></th>
+                                  <th></th>
+                                </tr>
+                                <% Dish.where(:dish_type_id => dish_type.id).each do |dish| %>
+                                  <tr>
+                                    <td><%= dish.name %></td>
+                                    <td><%= dish.ingredients %></td>
+                                    <td><%= dish.grams %></td>
+                                    <td><%= dish.price %></td>
+                                    <td><%= dish.time %></td>
+                                    <td><div class="button"><%= link_to 'Add', 'order/add/%s' % dish.id, :class => 'add-in-order', :method => :post, :remote => true %></div></td>
+                                  </tr>
+                                <% end %>
+                        <% end %>
+							  <tr>
+							  	<th>Name</th>
+							    <th>Ingredients</th>
+							    <th>Grams</th>
+							    <th>Price</th>
+							    <th>Time</th>
+							    <th></th>
+							    <th></th>
+							    <% if @order %>
+							    	<th></th>
+							    <% end %>
+							  </tr>
+							  <% Dish.where(:dish_type_id => dish_type.id).each do |dish| %>
+								  <tr>
+								  	<td><%= dish.name %></td>
+								    <td><%= dish.ingredients %></td>
+								    <td><%= dish.grams %></td>
+								    <td><%= dish.price %></td>
+								    <td><%= dish.time %></td>
+								    <% if @order %>
+								    	<td><div class="button"><%= link_to 'Add', 'order/add/%s' % dish.id, :class => 'add-in-order', :method => :post, :remote => true %></div></td>
+								   	<% end %>
+								  </tr>
+								<% end %>
                       	</table>
                       </div>
                     <% end %>

@@ -31,6 +31,16 @@
     <%= render "/shared/footer"%>
 
     <script type="text/javascript">
+    	
+    	function getNoti(){
+    		$.get('/notifications/count', function(data){
+    			if (data != 0)
+    				$('#notifications-count').html('('+ data +')')
+    			else
+    				$('#notifications-count').html('')
+    		})
+    	}
+    
       $(window).load(function() {
         $('.flexslider').flexslider({
           animation: "slide",
@@ -38,6 +48,11 @@
           pauseOnHover: true,
           slideshowSpeed: 15000
         });
+        
+        <% if user_signed_in? and (current_user.chef? or current_user.waiter?) %>
+        	getNoti();
+        	setInterval(getNoti, 15000 );
+        <% end %> 
       });
     </script>
   </body>

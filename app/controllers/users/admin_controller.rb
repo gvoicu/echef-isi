@@ -1,4 +1,8 @@
 class Users::AdminController < UsersController
+  before_filter do
+    redirect_to '/' unless current_user && current_user.admin?
+  end
+  
   def show
     @users = User.all
 

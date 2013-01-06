@@ -22,6 +22,10 @@ Echef::Application.routes.draw do
   match "/gallery" => "pages#gallery"
 
   get "pages/home"
+  
+  get "/qr/:qr_code" => "qr#index"
+  
+  post "/tables/change_qr/:table_id" => "tables#change_qr"
 
 	root :to => "pages#home"
 
@@ -33,7 +37,11 @@ Echef::Application.routes.draw do
 
   resources :bookings
 
+  match "/notifications/count" => "notifications#count"
+  match "/notifications/refresh" => "notifications#refresh"
+
   resources :notifications
+  
   match "/mark_noti_as_done" => "notifications#mark_as_done"
 
   resources :tables

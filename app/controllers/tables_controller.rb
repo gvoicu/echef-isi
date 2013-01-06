@@ -1,4 +1,6 @@
 class TablesController < ApplicationController
+  before_filter :authenticate_user!
+  
   # GET /tables
   # GET /tables.json
   def index
@@ -86,6 +88,16 @@ class TablesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to tables_url }
       format.json { head :no_content }
+    end
+  end
+  
+  def change_qr
+    table = Table.find(params[:table_id])
+    table.qr_code = SecureRandom.hex(10)
+    table.save
+    
+    respond_to do |format|
+      format.html {redirect_to '/tables'}
     end
   end
 end

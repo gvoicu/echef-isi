@@ -3,25 +3,29 @@
 <%#= link_to 'New Notification', new_notification_path %>
 <br />
 
-<table>
+<table id="notifications">
+<thead>
   <tr>
     <th>Note</th>
     <th>Table</th>
     <th></th>
   </tr>
+</thead>
 
-<% @notifications.each do |notification| %>
-  <tr>
-    <td><%= notification.note %></td>
-    <td><%= notification.table.number %></td>
-    <% if notification.is_done? %>
-      <td>Done</td>
-    <% else %>
-      <td><%= link_to "Done", "/mark_noti_as_done?id=#{notification.id}", :remote => true %></td>
-    <% end %>
-    <!--
-      <td><%= link_to 'Destroy', notification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    -->
-  </tr>
-<% end %>
+<tbody>
+</tbody>
 </table>
+
+<script>
+	function updateNotifications(){
+		$.get('/notifications/refresh', function(data){
+			$('#notifications tbody tr').remove();
+			$('#notifications tbody').append(data);
+		})
+	}
+	
+	$(function(){
+		updateNotifications();
+		setInterval(updateNotifications, 15000);
+	})
+</script>

@@ -2,8 +2,6 @@ class NotificationsController < ApplicationController
   # GET /notifications
   # GET /notifications.json
   def index
-    @notifications = Notification.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @notifications }
@@ -83,11 +81,46 @@ class NotificationsController < ApplicationController
 
   def mark_as_done
     noti = Notification.find(params[:id])
-    noti.mark_as_done
+    
+    @id = noti.id
+    
+    noti.delete
 
     respond_to do |format|
       format.html { redirect_to "/notifications" }
-      format.js
     end
+  end
+  
+  def count
+    @notifications = Notification.where(:status => false)
+    @notifications = @notifications.count
+    
+    render :layout => false
+  end
+  
+  def refresh
+    @notifications = Notification.all
+    @orderNotifications = Array.new
+    
+    # Daca e chelner
+    if user_signed_in? and current_user.chef?
+      orderDishes = OrderDish.where("dish_status = ?", Constant::DS_PREPARING).select(:order_id).uniq
+      for orderDish in orderDishes do
+        @orderNotifications.push({:note => "New food.", :table_id => orderDish.order.table.number, :order => orderDish.order_id})
+      end
+      
+    elsif user_signed_in? and current_user.waiter?
+      orderDishes = OrderDish.where("dish_status = ?", Constant::DS_READY).select(:order_id).uniq
+      for orderDish in orderDishes do
+        @orderNotifications.push({:note => "Food ready.", :table_id => orderDish.order.table.number, :order => orderDish.order_id})
+      end
+      
+      orderDishes = OrderDish.where("dish_status = ?", Constant::DS_CHECK).select(:order_id).uniq
+      for orderDish in orderDishes do
+        @orderNotifications.push({:note => "Bring check.", :table_id => orderDish.order.table.number, :order => orderDish.order_id})
+      end
+    end
+    
+    render :layout => false
   end
 end

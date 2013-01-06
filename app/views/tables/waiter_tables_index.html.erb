@@ -5,35 +5,34 @@
     <th>Number</th>
     <th>Qr code</th>
     <th>Persons</th>
+    <th>Active order</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
 <% @tables.each do |table| %>
+	<% active_orders = table.get_active_orders %>
   <tr>
     <td><%= table.number %></td>
-    <td><%= table.qr_code %></td>
+    <td>
+    	<%= link_to 'View QR', '/qr/' + table.qr_code, :method => :get, :target => '_blank' %>
+    	<% if !active_orders.present? %>
+    		<%= link_to 'Generate new QR', '/tables/change_qr/' + table.id.to_s, :method => :post%>
+    	<% end %>
+    </td>
     <td><%= table.persons %></td>
+    <td>
+  		<% if active_orders.present? %>
+  			<% active_orders.each do |order| %>
+          		<p><%= link_to "Order #{order.id}", "/orders/#{order.id}" %></p>
+        	<% end %>
+  		<% end %>	
+    </td>
     <td><%= link_to 'Show', table %></td>
     <td><%= link_to 'Edit', edit_table_path(table) %></td>
     <td><%= link_to 'Destroy', table, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
-  <% active_orders = table.get_active_orders %>
-  <% if active_orders.present? %>
-    <tr>
-      <td></td>
-      <td>
-        <% active_orders.each do |order| %>
-          <p><%= link_to "Order #{order.id}", "/orders/#{order.id}" %></p>
-        <% end %>
-      </td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-  <% end %>
 <% end %>
 </table>
 

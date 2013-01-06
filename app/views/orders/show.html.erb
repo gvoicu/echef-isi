@@ -9,7 +9,7 @@
   <% if @order.is_payed? %>
     Payed
   <% else %>
-    <%= link_to "Mark as Payed", "/mark_as_payed?id=#{@order.id}" %>
+    <%= link_to "Pay", "/mark_as_payed?id=#{@order.id}" %>
   <% end %>
 
   <br />

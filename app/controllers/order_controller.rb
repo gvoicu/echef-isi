@@ -1,15 +1,21 @@
 class OrderController < ApplicationController
 
   def index
-     @order = Order.find(session[:order_id])
+    if (session[:order_id])
+      @order = Order.find(session[:order_id])
 
-     @order_dishes = OrderDish.where("order_id = ?", @order.id)
+      @order_dishes = OrderDish.where("order_id = ?", @order.id)
 
-     # Waiter was called.
-     @waiter = Notification.where(:table_id => @order.table_id)
+      # Waiter was called.
+      @waiter = Notification.where(:table_id => @order.table_id)
 
-    respond_to do |format|
-      format.html # index.html.erb
+      respond_to do |format|
+        format.html # index.html.erb
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to '/menu'}
+      end
     end
   end
 
@@ -84,16 +90,16 @@ class OrderController < ApplicationController
       @total += mDish.price
 
       # 5 = check
-      if dish.dish_status > 1 && dish.dish_status < 5
-        dish.dish_status = 5
+      if dish.dish_status == Constant::DS_DELIVERED
+        dish.dish_status = Constant::DS_CHECK
         dish.save
       end
 
-      if dish.dish_status == 1
+      if dish.dish_status == Constant::DS_PENDING
         @subtotal += mDish.price
       end
 
-      if dish.dish_status == 5
+      if dish.dish_status == Constant::DS_CHECK
         @on_check += mDish.price
       end
     end
