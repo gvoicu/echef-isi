@@ -4,8 +4,10 @@ class MenuController < ApplicationController
      @dishes = Dish.all
      
      if session[:order_id]
-      @order = Order.find(session[:order_id])
-      @notif = Notification.find_by_table_id(@order.table_id)
+      @order = Order.find_by_id(session[:order_id])
+      if @order
+        @notif = Notification.find_by_table_id(@order.table_id)
+      end
      end
 
     respond_to do |format|

@@ -5,6 +5,7 @@
     <th>Number</th>
     <th>Qr code</th>
     <th>Persons</th>
+    <th>Active order</th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,25 +16,18 @@
     <td><%= table.number %></td>
     <td><%= table.qr_code %></td>
     <td><%= table.persons %></td>
+    <td>
+    	<% active_orders = table.get_active_orders %>
+  		<% if active_orders.present? %>
+  			<% active_orders.each do |order| %>
+          		<p><%= link_to "Order #{order.id}", "/orders/#{order.id}" %></p>
+        	<% end %>
+  		<% end %>	
+    </td>
     <td><%= link_to 'Show', table %></td>
     <td><%= link_to 'Edit', edit_table_path(table) %></td>
     <td><%= link_to 'Destroy', table, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
-  <% active_orders = table.get_active_orders %>
-  <% if active_orders.present? %>
-    <tr>
-      <td></td>
-      <td>
-        <% active_orders.each do |order| %>
-          <p><%= link_to "Order #{order.id}", "/orders/#{order.id}" %></p>
-        <% end %>
-      </td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-  <% end %>
 <% end %>
 </table>
 

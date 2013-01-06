@@ -1,4 +1,6 @@
 class TablesController < ApplicationController
+  before_filter :authenticate_user!
+  
   # GET /tables
   # GET /tables.json
   def index
