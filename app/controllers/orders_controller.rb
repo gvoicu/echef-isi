@@ -86,13 +86,8 @@ class OrdersController < ApplicationController
 
   def mark_as_payed
     order = Order.find(params[:id])
-    if order.order_dishes.count > 0
-      order.mark_dishes_as_payed()
-    else
-      order.destroy
-      redirect_to "/tables"
-      return
-    end
+    
+    order.pay()
 
     respond_to do |format|
       format.html { redirect_to "/orders/#{order.id}" }

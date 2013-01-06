@@ -90,16 +90,16 @@ class OrderController < ApplicationController
       @total += mDish.price
 
       # 5 = check
-      if dish.dish_status > 1 && dish.dish_status < 5
-        dish.dish_status = 5
+      if dish.dish_status == Constant::DS_DELIVERED
+        dish.dish_status = Constant::DS_CHECK
         dish.save
       end
 
-      if dish.dish_status == 1
+      if dish.dish_status == Constant::DS_PENDING
         @subtotal += mDish.price
       end
 
-      if dish.dish_status == 5
+      if dish.dish_status == Constant::DS_CHECK
         @on_check += mDish.price
       end
     end

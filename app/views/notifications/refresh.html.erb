@@ -2,13 +2,20 @@
   <tr tag="<%= notification.id %>">
     <td><%= notification.note %></td>
     <td><%= notification.table.number %></td>
-    <% if notification.is_done? %>
-      <td>Done</td>
-    <% else %>
-      <td><%= link_to "Done", "/mark_noti_as_done?id=#{notification.id}", :remote => true %></td>
-    <% end %>
+  	<td><%= link_to "Done", "/mark_noti_as_done?id=#{notification.id}" %></td>
     <!--
       <td><%= link_to 'Destroy', notification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     -->
   </tr>
+<% end %>
+
+<% @orderNotifications.each do |notification| %>
+	<tr>
+	    <td><%= notification[:note] %></td>
+	    <td><%= notification[:table_id] %></td>
+	    <td><%= link_to "View Order", "/orders/#{notification[:order]}" %></td>
+	    <!--
+	      <td><%= link_to 'Destroy', notification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	    -->
+	  </tr>
 <% end %>

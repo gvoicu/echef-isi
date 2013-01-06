@@ -12,8 +12,11 @@ class Order < ActiveRecord::Base
     self.dishes.sum(:price)
   end
 
-  def mark_dishes_as_payed
-    OrderDish.where(:order_id => self.id).update_all(:dish_status => Constant::DS_PAYED)
+  def pay
+    OrderDish.where(:order_id => self.id, :dish_status => Constant::DS_CHECK).update_all(:dish_status => Constant::DS_PAYED)
+  end
+  
+  def close
     self.update_attributes(:closed_at => Time.now)
   end
 
