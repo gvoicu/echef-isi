@@ -3,6 +3,8 @@ class Table < ActiveRecord::Base
   has_many :notifications
 
   attr_accessible :number, :persons, :qr_code
+  
+  default_scope :order => "id ASC"
 
   def get_active_orders
     self.orders.find_all{ |o| !o.is_payed? }

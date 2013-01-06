@@ -90,6 +90,7 @@ GEM
     rake (10.0.3)
     rdoc (3.12)
       json (~> 1.4)
+    rqrcode (0.4.2)
     sass (3.2.3)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -123,5 +124,6 @@ DEPENDENCIES
   pg
   populator
   rails (= 3.2.9)
+  rqrcode (~> 0.4.2)
   sass-rails (~> 3.2.3)
   uglifier (>= 1.0.3)

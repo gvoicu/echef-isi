@@ -12,12 +12,17 @@
   </tr>
 
 <% @tables.each do |table| %>
+	<% active_orders = table.get_active_orders %>
   <tr>
     <td><%= table.number %></td>
-    <td><%= table.qr_code %></td>
+    <td>
+    	<%= link_to 'View QR', '/qr/' + table.qr_code, :method => :get, :target => '_blank' %>
+    	<% if !active_orders.present? %>
+    		<%= link_to 'Generate new QR', '/tables/change_qr/' + table.id.to_s, :method => :post%>
+    	<% end %>
+    </td>
     <td><%= table.persons %></td>
     <td>
-    	<% active_orders = table.get_active_orders %>
   		<% if active_orders.present? %>
   			<% active_orders.each do |order| %>
           		<p><%= link_to "Order #{order.id}", "/orders/#{order.id}" %></p>

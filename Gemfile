@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem "rqrcode", "~> 0.4.2"
+
 gem 'rails', '3.2.9'
 
 # Bundle edge Rails instead:
