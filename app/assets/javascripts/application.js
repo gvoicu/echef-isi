@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui-1.9.2.custom.js
 //= require theme/bootstrap
 //= require theme/jquery.flexslider-min
 //= require theme/jquery.isotope
@@ -19,4 +20,8 @@
 //= require theme/filter
 //= require theme/jquery.tweet
 //= require theme/custom
+
+$(function(){
+	$('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
+})
 	

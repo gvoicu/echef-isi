@@ -72,6 +72,11 @@ class BookingsController < ApplicationController
       session[:booking] = @booking
       
       respond_to do |format|
+        if !@booking.valid? and (@booking.errors[:start_at_time].any? or @booking.errors[:end_at_time].any?)
+          params[:booking] = nil
+        end
+        
+        @err = true
         format.html { render action: "new" }
       end
       

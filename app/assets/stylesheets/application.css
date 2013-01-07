@@ -11,3 +11,7 @@
  *= require_self
  *= require_tree .
  */
+
+.controls.book select{
+  width: 90px;
+}
