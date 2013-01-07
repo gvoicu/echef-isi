@@ -18,14 +18,6 @@ class MenuController < ApplicationController
 
   # Get table from QR.
   def table
-  #<<<<<<< HEAD
-      #qr_table    = Table.find_by_qr_code(params[:qr])
-
-      #order = qr_table.get_active_orders.last || Order.find_by_id(session[:order_id])
-      #create_order(qr_table) if order.present? && order.is_payed?
-
-  #=======
-
     qr_table = Table.find_by_qr_code(params[:qr])
 
     if qr_table
@@ -46,23 +38,23 @@ class MenuController < ApplicationController
       format.html { redirect_to '/menu'}
     end
   end
-  
+
   # Add dish to order.
   def add
     render :nothing => true 
 
     if session[:order_id]
       dish = Dish.find(params[:dish_id])
-  
+
       order_dish          = OrderDish.new
       order_dish.order_id = session[:order_id]
       order_dish.dish     = dish
-  
+
       # 2 for sent order
       order_dish.dish_status = 1;
-  
+
       order_dish.time = dish.time;
-  
+
       order_dish.save
     end
 

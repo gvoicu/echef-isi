@@ -15,7 +15,7 @@ class Order < ActiveRecord::Base
   def pay
     OrderDish.where(:order_id => self.id, :dish_status => Constant::DS_CHECK).update_all(:dish_status => Constant::DS_PAYED)
   end
-  
+
   def close
     self.update_attributes(:closed_at => Time.now)
   end
@@ -28,7 +28,7 @@ class Order < ActiveRecord::Base
       return true
     end
   end
-  
+
   def is_open?
     if self.closed_at
       return false
@@ -36,5 +36,4 @@ class Order < ActiveRecord::Base
       return true 
     end
   end
-  
 end
