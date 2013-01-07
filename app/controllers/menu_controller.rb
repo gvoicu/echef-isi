@@ -23,14 +23,14 @@ class MenuController < ApplicationController
     if qr_table
       oldOrder = Order.find_by_table_id(qr_table.id)
 
-      if oldOrder && !oldOrder.is_open?
+      if oldOrder && oldOrder.is_open?
         order = oldOrder
       else
         order = Order.new
+        order.table = qr_table
+        order.save
       end
 
-      order.table = qr_table
-      order.save
       session[:order_id] = order.id
     end
 
