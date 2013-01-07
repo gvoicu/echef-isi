@@ -3160,6 +3160,13 @@ input[type="submit"].btn.btn-mini {
 }
 .tabbable {
   *zoom: 1;
+  background: #FFF;
+  padding: 10px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: solid 1px #CCC;
+   box-shadow: 0 0 3px #AAAAAA;
 }
 .tabbable:before,
 .tabbable:after {

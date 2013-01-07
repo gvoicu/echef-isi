@@ -1,94 +1,105 @@
-<h1>Order</h1>
+<div class="row">
+     <div class="span12">
 
+        <!-- Careers starts -->
 
-<%= link_to 'Menu', 'menu', method: :get %>
-
-<table>
-  <tr>
-  	<th>Name</th>
-    <th>Ingredients</th>
-    <th>Grams</th>
-    <th>Time</th>
-    <th>Dish type</th>
-    <th>Price</th>
-    <th>Dish Status</th>
-  </tr>
-
-  <% @total    = 0 %>
-  <% @on_check = 0 %>
-  <% @subtotal = 0 %>
-
-  <% @order_dishes.each do |dish| %>
-    <% mDish = dish.dish %>
-    <% @total += mDish.price %>
-    <tr>
-      <td><%= mDish.name %></td>
-      <td><%= mDish.ingredients %></td>
-      <td><%= mDish.grams %></td>
-      <% if dish.dish_status == Constant.Preparing: %>
-      	<td><%= ((dish.updated_at + dish.time * 60 - Time.now)/60).floor %></td>
-      <% else %>
-      	<td>-</td>
-      <% end %>
-      <td><%= mDish.dish_type.name %></td>
-      <td><strong><%= mDish.price %></strong></td>
-
-      <% if dish.is_pending? %>
-        <% @to_send = 1 %>
-        <td><%= "pending" %></td>
-        <td><%= link_to 'Remove', 'order/remove/%s' % dish.id, method: :delete %></td>
-      <% elsif dish.is_preparing? %>
-        <% @sent = 1 %>
-        <td class="check"><%= "preparing" %></td>
-      <% elsif dish.is_ready? %>
-        <td class="check"><%= "ready" %></td>
-      <% elsif dish.is_delivered? %>
-        <% @sent = 1 %>
-        <% @request = true %>
-        <td class="check"><%= "deliverd" %></td>
-      <% elsif dish.is_check? %>
-        <% @sent = 2 if @sent != 1%>
-        <td><%= "check" %></td>
-        <% @on_check += mDish.price %>
-      <% elsif dish.is_payed? %>
-        <% @sent = 2 if @sent != 1 %>
-        <td><%= "payed" %></td>
-      <% end %>
-
-      <% if !dish.is_check? %>
-        <% @subtotal += mDish.price %>
-      <% end %>
-    </tr>
-  <% end %>
-</table>
-		
-  <br />
-
-	<% if !@sent.nil? && @to_send == 1%>
-		<%= link_to 'Update Order', 'order/send', method: :post %>
-	<% elsif @to_send == 1 %>
-		<%= link_to 'Send Order', 'order/send', method: :post %>
-	<% end %>
-	
-  <% if !@order.is_open? %>
-  <% else %>
-    <% if @order.table.has_notification? %>
-      <p>Waiter called.</p>
-    <% elsif %>
-      <p id="call-waiter"><%= link_to 'Call waiter', 'order/waiter', method: :post, :remote => true %></p>
-    <% end %>
-  <% end %>
-	
-	<% if @order_dishes.any? && @subtotal == 0 %>
-		<p>Check requested.</p>
-	<% elsif @order_dishes.any? && @subtotal != 0 && @request %>
-		<p id="request-check"><%= link_to 'Request check', 'order/check', method: :post, :remote => true %></p>
-	<% end %>
-	
-	Subtotal: <span id="subtotal"><%= @subtotal %></span>
-	<br/>
-	On Check: <span id="on-check"><%= @on_check %></span>
-	<br/>
-	Total: <span id="total"><%= @total %></span>
-	
-<br />
+        <div class="career">
+        	
+           <div class="row">
+              <div class="span12">
+              	
+								<div class="menu-actions">
+									<%= link_to 'Menu', 'menu', method: :get %> | 
+									
+									<% if @order.is_open? && !@order.table.has_notification? %>
+										<span id="call-waiter"><%= link_to 'Call waiter', 'order/waiter', method: :post, :remote => true %></span>
+									<% else %>
+										<span>Waiter called.</span>
+									<% end %>
+								</div>
+								
+								<div class="tabbable">
+								<table>
+								  <tr>
+								  	<th>Photo</th>
+								  	<th>Name</th>
+								    <th>Time</th>
+								    <th>Price</th>
+								    <th>Dish Status</th>
+								  </tr>
+								
+								  <% @total    = 0 %>
+								  <% @on_check = 0 %>
+								  <% @subtotal = 0 %>
+								
+								  <% @order_dishes.each do |dish| %>
+								    <% mDish = dish.dish %>
+								    <% @total += mDish.price %>
+								    <tr>
+								    	<td><%= link_to image_tag(mDish.photo.url, :style => 'width: 100px;'), mDish.photo.url, :target => "_blank" %></td>
+								      <td><%= mDish.name %></td>
+								      <% if dish.dish_status == Constant::DS_PREPARING %>
+								      	<td><%= ((dish.updated_at + dish.time * 60 - Time.now)/60).floor %></td>
+								      <% else %>
+								      	<td>-</td>
+								      <% end %>
+								      <td><strong><%= mDish.price %></strong></td>
+								
+								      <% if dish.is_pending? %>
+								        <% @to_send = 1 %>
+								        <td><%= "pending" %></td>
+								        <td><%= link_to 'Remove', 'order/remove/%s' % dish.id, method: :delete %></td>
+								      <% elsif dish.is_preparing? %>
+								        <% @sent = 1 %>
+								        <td class="check"><%= "preparing" %></td>
+								      <% elsif dish.is_ready? %>
+								        <td class="check"><%= "ready" %></td>
+								      <% elsif dish.is_delivered? %>
+								        <% @sent = 1 %>
+								        <% @request = true %>
+								        <td class="check"><%= "deliverd" %></td>
+								      <% elsif dish.is_check? %>
+								        <% @sent = 2 if @sent != 1%>
+								        <td><%= "check" %></td>
+								        <% @on_check += mDish.price %>
+								      <% elsif dish.is_payed? %>
+								        <% @sent = 2 if @sent != 1 %>
+								        <td><%= "payed" %></td>
+								      <% end %>
+								
+								      <% if !dish.is_check? %>
+								        <% @subtotal += mDish.price %>
+								      <% end %>
+								    </tr>
+								  <% end %>
+								</table>
+								
+									<div class="order-buttons">
+										<% if !@sent.nil? && @to_send == 1%>
+											<div class="button">
+												<%= link_to 'Update Order', 'order/send', method: :post %>
+											</div>
+										<% elsif @to_send == 1 %>
+											<div class="button">
+												<%= link_to 'Send Order', 'order/send', method: :post %>
+											</div>
+										<% end %>
+										
+										<% if @order_dishes.any? && @subtotal == 0 %>
+											<p>Check requested.</p>
+										<% elsif @order_dishes.any? && @subtotal != 0 && @request %>
+											<p id="request-check"><%= link_to 'Request check', 'order/check', method: :post, :remote => true %></p>
+										<% end %>
+									</div>
+									
+									Subtotal: <span id="subtotal"><%= @subtotal %></span>
+									<br/>
+									On Check: <span id="on-check"><%= @on_check %></span>
+									<br/>
+									Total: <span id="total"><%= @total %></span>
+					</div>									
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
