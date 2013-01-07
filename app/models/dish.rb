@@ -2,7 +2,7 @@ class Dish < ActiveRecord::Base
   belongs_to :dish_type
   attr_accessible :grams, :ingredients, :price, :time, :photo, :dish_type_id, :name
   
-  has_attached_file :photo, :styles => { :small => "150x150>" },
+  has_attached_file :photo, :styles => { :small => "220x130>" },
                   :url  => "/assets/products/:id/:style/:basename.:extension",
                   :path => ":rails_root/public/assets/products/:id/:style/:basename.:extension",
                   :default_url => "/assets/noimage.jpg"

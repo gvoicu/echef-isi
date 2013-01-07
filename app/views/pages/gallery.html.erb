@@ -16,31 +16,12 @@
                  <!-- Gallery -->
                  
                 <div id="gallery">
+                	<% Dish.all.each do |dish| %>
                     <!-- For image lightbox you need to include "a" tag pointing to image link, along with the class "prettyPhoto[pp_gal]".-->
-                   <a href="/assets/photos/s1.jpg" class="prettyPhoto[pp_gal]">
-                       <img src="/assets/photos/s1.jpg" alt=""/>
+                   <a href="<%= dish.photo.url(:original) %>" class="prettyPhoto[pp_gal]">
+                       <img src="<%= dish.photo.url(:small) %>" alt=""/>
                    </a>
-                   <a href="/assets/photos/s2.jpg" class="prettyPhoto[pp_gal]">
-                       <img src="/assets/photos/s2.jpg" alt=""/>                         
-                   </a>
-                   <a href="/assets/photos/s3.jpg" class="prettyPhoto[pp_gal]">
-                       <img src="/assets/photos/s3.jpg" alt=""/>                        
-                   </a>
-                   <a href="/assets/photos/s4.jpg" class="prettyPhoto[pp_gal]">
-                       <img src="/assets/photos/s4.jpg" alt=""/>                          
-                   </a>
-                   <a href="/assets/photos/s5.jpg" class="prettyPhoto[pp_gal]">
-                       <img src="/assets/photos/s5.jpg" alt=""/>                          
-                   </a> 
-                   <a href="/assets/photos/s6.jpg" class="prettyPhoto[pp_gal]">
-                       <img src="/assets/photos/s6.jpg" alt=""/>                           
-                   </a> 
-                   <a href="/assets/photos/s7.jpg" class="prettyPhoto[pp_gal]">
-                       <img src="/assets/photos/s7.jpg" alt=""/>                          
-                   </a>
-                   <a href="/assets/photos/s8.jpg" class="prettyPhoto[pp_gal]">
-                       <img src="/assets/photos/s8.jpg" alt=""/>                           
-                   </a>
+                  <% end %>
                 </div>
                  
               </div>

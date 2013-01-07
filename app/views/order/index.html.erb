@@ -36,7 +36,7 @@
 								    <% mDish = dish.dish %>
 								    <% @total += mDish.price %>
 								    <tr tag="<%= dish.id %>">
-								    	<td><%= link_to image_tag(mDish.photo.url, :style => 'width: 100px;'), mDish.photo.url, :target => "_blank" %></td>
+								    	<td><%= link_to image_tag(mDish.photo.url, :style => 'width: 100px;'), mDish, :target => "_blank" %></td>
 								      <td><%= mDish.name %></td>
 								      <% if dish.dish_status == Constant::DS_PREPARING %>
 								      	<td><%= ((dish.updated_at + dish.time * 60 - Time.now)/60).floor %></td>
