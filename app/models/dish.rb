@@ -1,6 +1,6 @@
 class Dish < ActiveRecord::Base
   belongs_to :dish_type
-  attr_accessible :grams, :ingredients, :price, :time, :photo, :dish_type_id
+  attr_accessible :grams, :ingredients, :price, :time, :photo, :dish_type_id, :name
   
   has_attached_file :photo, :styles => { :small => "150x150>" },
                   :url  => "/assets/products/:id/:style/:basename.:extension",

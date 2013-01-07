@@ -1,9 +1,4 @@
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
-
-<br />
-
-<% if current_user.waiter? %>
+<% if current_user.waiter? || current_user.admin? %>
   Total Sum: <%= @order.calculate_total_sum %>
 
   <% if @order.is_payed? and @order.is_open? %>

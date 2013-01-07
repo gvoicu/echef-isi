@@ -1,7 +1,5 @@
 <h1>Listing bookings</h1>
 
-<%= current_user.admin? %>
-
 <table>
   <tr>
     <th>Start</th>
@@ -23,8 +21,7 @@
     <td><%= booking.name %></td>
     <td><%= booking.email %></td>
     <td><%= booking.phone %></td>
-    <td><%= booking.confirmed %></td>
-    <td><%= booking.table %></td>
+    <td><%= booking.table.number %></td>
     <td><%= link_to 'Show', booking %></td>
     <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
     <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
