@@ -25,7 +25,7 @@
       <td><%= mDish.name %></td>
       <td><%= mDish.ingredients %></td>
       <td><%= mDish.grams %></td>
-      <td><%= mDish.created_at %></td>
+      <td><%= ((dish.created_at + dish.time * 60 - Time.now)/60).floor %></td>
       <td><%= mDish.dish_type.name %></td>
       <td><strong><%= mDish.price %></strong></td>
 
