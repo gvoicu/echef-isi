@@ -94,7 +94,7 @@ class OrdersController < ApplicationController
       format.js
     end
   end
-  
+
   def mark_as_closed
     order = Order.find(params[:order_id])
     order.close()
@@ -111,7 +111,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to "/orders/#{order_dish.order_id}" }
-      format.js { "1".to_json }
+      format.js
     end
   end
 end

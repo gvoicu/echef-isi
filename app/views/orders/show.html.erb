@@ -38,7 +38,13 @@
 
 
 <b>Dishes</b>
-<table>
+<table style="width: 100%; font-size: 15px;">
+  <tr>
+    <td><strong>Dish Name</strong></td>
+    <td><strong>Dish Status</strong></td>
+    <td><strong>Remaining Time</strong></td>
+    <td><strong>New Time</strong></td>
+  </tr>
   <% @order_dishes.each do |order_dish| %>
     <tr>
       <td>
@@ -48,11 +54,14 @@
         <%= raw display_dish_action(order_dish) %>
       </td>
       <% if current_user.chef? %>
-        <td style="padding-top: 5px;">
-          <%= form_tag ({:action => "change_order_time"}), ({:remote => true}) do %>
-            <%= number_field_tag :time, order_dish.time, :min => 1, :style => "width: 40px;" %>
+         <td id="order_dish-<%= order_dish.id %>">
+          <%= ((order_dish.updated_at + order_dish.time.minutes - Time.now)/60).floor %>
+        </td>
+        <td style="font-size: 15px;">
+          <%= form_tag ({:action => "change_order_time"}), ({:remote => true, :style => "margin-top: 20px;"}) do %>
+            <%= number_field_tag :time, (((order_dish.updated_at + order_dish.time.minutes - Time.now)/60).floor), :min => 1, :style => "width: 40px;" %>
             <%= hidden_field_tag :id, order_dish.id %>
-            <%= submit_tag :change %>
+            <%= submit_tag :change, :style => "margin-top: -10px;" %>
           <% end %>
         </td>
       <% end %>
