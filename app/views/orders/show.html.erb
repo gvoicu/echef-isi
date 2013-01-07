@@ -43,7 +43,9 @@
     <td><strong>Dish Name</strong></td>
     <td><strong>Dish Status</strong></td>
     <td><strong>Remaining Time</strong></td>
-    <td><strong>New Time</strong></td>
+    <% if current_user.chef? %>
+      <td><strong>New Time</strong></td>
+    <% end %>
   </tr>
   <% @order_dishes.each do |order_dish| %>
     <tr>
@@ -53,10 +55,11 @@
       <td>
         <%= raw display_dish_action(order_dish) %>
       </td>
+       <td id="order_dish-<%= order_dish.id %>">
+        <%= ((order_dish.updated_at + order_dish.time.minutes - Time.now)/60).floor %>
+      </td>
+
       <% if current_user.chef? %>
-         <td id="order_dish-<%= order_dish.id %>">
-          <%= ((order_dish.updated_at + order_dish.time.minutes - Time.now)/60).floor %>
-        </td>
         <td style="font-size: 15px;">
           <%= form_tag ({:action => "change_order_time"}), ({:remote => true, :style => "margin-top: 20px;"}) do %>
             <%= number_field_tag :time, (((order_dish.updated_at + order_dish.time.minutes - Time.now)/60).floor), :min => 1, :style => "width: 40px;" %>
