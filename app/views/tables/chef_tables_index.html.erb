@@ -1,40 +1,29 @@
-<h1>Listing tables</h1>
+<div class="tabbable">
+	<h3>Tables</h3>
+	<hr/>
 
 <table>
-  <tr>
-    <th>Number</th>
-    <th>Qr code</th>
-    <th>Persons</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+	<thead>
+	  <tr>
+	    <th>Number</th>
+	    <th>Active Orders</th>
+	  </tr>
+  </thead>
 
 <% @tables.each do |table| %>
 	<% active_orders = table.get_active_orders %>
   <tr>
     <td><%= table.number %></td>
-    <td>
-    	<%= link_to 'View QR', '/qr/' + table.qr_code, :method => :get, :target => '_blank' %>
-    	<% if !active_orders.present? %>
-    		<%= link_to 'Generate new QR', '/tables/change_qr/' + table.id.to_s, :method => :post%>
-    	<% end %>
-    </td>
     <td><%= table.persons %></td>
     <td>
   		<% if active_orders.present? %>
   			<% active_orders.each do |order| %>
-          		<p><%= link_to "Order #{order.id}", "/orders/#{order.id}" %></p>
+          		<%= link_to "Order #{order.id}", "/orders/#{order.id}" %>
         	<% end %>
   		<% end %>	
     </td>
-    <td><%= link_to 'Show', table %></td>
-    <td><%= link_to 'Edit', edit_table_path(table) %></td>
-    <td><%= link_to 'Destroy', table, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
-<br />
-
-<%= link_to 'New Table', new_table_path %>
+</div>

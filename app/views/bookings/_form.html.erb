@@ -70,7 +70,7 @@
 					  <div class="control-group">
 					    <%= f.label :table, :class => "control-label" %>
 					    <div class="controls book">
-					    	<%= f.select :table,  :collection => Table.where('number NOT IN (COALESCE(?, 0))', Booking.where('start < ? AND bookings.end > ?', @booking.end, @booking.start).collect{|t| [t.tables.number]}).collect{|t| [t.number] } %>
+					    	<%= f.collection_select(:table_id, Table.all, :id, :number) %>
 					    </div>
 					  </div>
 					  

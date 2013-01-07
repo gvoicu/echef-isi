@@ -51,10 +51,12 @@ class TablesController < ApplicationController
   # POST /tables.json
   def create
     @table = Table.new(params[:table])
+    
+    @table.qr_code = SecureRandom.hex(10)
 
     respond_to do |format|
       if @table.save
-        format.html { redirect_to @table, notice: 'Table was successfully created.' }
+        format.html { redirect_to '/tables', notice: 'Table was successfully created.' }
         format.json { render json: @table, status: :created, location: @table }
       else
         format.html { render action: "new" }

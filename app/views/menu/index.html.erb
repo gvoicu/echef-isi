@@ -36,6 +36,7 @@
 	                    <div class="tab-pane" id="tab<%=dish_type.id %>">
 	                      <!-- Content -->
 	                      <table>
+	                      	<thead>
 							  <tr>
 							  	<th>Photo</th>
 							  	<th>Name</th>
@@ -47,6 +48,7 @@
 							    	<th></th>
 							    <% end %>
 							  </tr>
+							  </thead>
 							  <% Dish.where(:dish_type_id => dish_type.id).order("name ASC").each do |dish| %>
 								  <tr>
 								  	<td><%= link_to image_tag(dish.photo.url), dish, :target => "_blank" %></td>

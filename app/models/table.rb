@@ -4,6 +4,9 @@ class Table < ActiveRecord::Base
 
   attr_accessible :number, :persons, :qr_code
   
+  validates :number, :presence => true, :uniqueness => true
+  validates :persons, :presence => true
+  
   default_scope :order => "id ASC"
 
   def get_active_orders

@@ -19,7 +19,7 @@ class UsersController < ApplicationController
                               :u_type => params[:user][:u_type])
     end
 
-    redirect_to "/users/#{@user.id}/edit"
+    redirect_to "/users"
   end
 
   def show

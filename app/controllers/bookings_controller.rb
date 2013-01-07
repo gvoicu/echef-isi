@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   before_filter :authenticate_user!, :only => [:index]
-  before_filter :only => [:index, :show, :update, :destroy], do 
+  before_filter :only => [:show, :update, :destroy], do 
     redirect_to '/' unless current_user && current_user.admin?
   end
   
@@ -53,13 +53,10 @@ class BookingsController < ApplicationController
           @booking[k] = params[:booking][k]
         end
       end
-      
-      # Replace table number with table object.      
-      @booking.table = Table.find(params[:booking][:table])
   
       respond_to do |format|
         if @booking.save
-          format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
+          format.html { redirect_to '/bookings', notice: 'Booking was successfully created.' }
           format.json { render json: @booking, status: :created, location: @booking }
         else
           format.html { render action: "new" }

@@ -1,19 +1,23 @@
-<h1>Listing bookings</h1>
+<div class="tabbable">
+
+<h3>Listing bookings</h3>
+<hr/>
 
 <table>
-  <tr>
-    <th>Start</th>
-    <th>End</th>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Phone</th>
-    <th>Confirmed</th>
-    <th>Table</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+	<thead>
+	  <tr>
+	    <th>Start</th>
+	    <th>End</th>
+	    <th>Name</th>
+	    <th>Email</th>
+	    <th>Phone</th>
+	    <th>Table</th>
+	    <% if current_user && current_user.admin? %>
+		    <th></th>
+		    <th></th>
+	    <% end %>
+	  </tr>
+	</thead>
 <% @bookings.each do |booking| %>
   <tr>
     <td><%= booking.start %></td>
@@ -22,13 +26,14 @@
     <td><%= booking.email %></td>
     <td><%= booking.phone %></td>
     <td><%= booking.table.number %></td>
-    <td><%= link_to 'Show', booking %></td>
-    <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
-    <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% if current_user && current_user.admin? %>
+    	<td><%= link_to 'Edit', edit_booking_path(booking) %></td>
+    	<td><%= link_to 'Delete', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 
-<br />
+<div class='button'><%= link_to 'New Booking', new_booking_path %></div>
 
-<%= link_to 'New Booking', new_booking_path %>
+</div>

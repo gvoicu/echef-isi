@@ -1,7 +1,11 @@
-<h1>Listing users</h1>
+<div class="tabbable">
+<h3>Listing users</h3>
+<hr/>
 
 <table>
+	<thead>
   <tr>
+  	<th>Username</th>
     <th>Email</th>
     <th>Name</th>
     <th>Type</th>
@@ -9,9 +13,11 @@
     <th></th>
     <th></th>
   </tr>
+</thead>
 
 <% @users.each do |user| %>
   <tr>
+  	<td><%= user.username %></td>
     <td><%= user.email %></td>
     <td><%= user.name %></td>
     <td>
@@ -25,6 +31,6 @@
 <% end %>
 </table>
 
-<br />
+<div class="button"><%= link_to 'New User', new_user_path %></div>
 
-<%= link_to 'New User', new_user_path %>
+</div>

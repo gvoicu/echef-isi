@@ -47,10 +47,6 @@ Echef::Application.routes.draw do
 
   resources :tables
 
-  match "/users/:id/edit" => "users#edit", :via => [:get]
-  match "/users/:id" => "users#update", :via => [:put]
-  match "/users/:id" => "users#show", :as => :user, :via => [:get]
-
   devise_for :users, :skip => [:registrations]
     as :user do
       #get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
@@ -60,6 +56,10 @@ Echef::Application.routes.draw do
       get 'user/new' => 'users/admin#new', :as => 'new_user'
       post 'users' => 'users/admin#create'
     end
+
+  match "/users/:id/edit" => "users#edit", :via => [:get]
+  match "/users/:id" => "users#update", :via => [:put]
+  match "/users/:id" => "users#show", :as => :user, :via => [:get]
 
   resources :dishes
 

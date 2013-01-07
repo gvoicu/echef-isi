@@ -1,38 +1,8 @@
-<% if current_user.waiter? || current_user.admin? %>
-  Total Sum: <%= @order.calculate_total_sum %>
+<div class="tabbable">
+	
+	<h3>Order <%= @order.id %></h3>
+	<hr/>
 
-  <% if @order.is_payed? and @order.is_open? %>
-    <%= link_to "Close", "/mark_as_closed?order_id=#{@order.id}" %>
-  <% elsif OrderDish.where(:order_id => @order.id, :dish_status => Constant::DS_CHECK).any? %>
-    <%= link_to "Pay", "/mark_as_payed?id=#{@order.id}" %>
-  <% end %>
-
-  <br />
-
-  <p id="notice"><%= notice %></p>
-
-  <p>
-    <b>Closed at:</b>
-    <%= @order.closed_at %>
-  </p>
-
-  <% if @order.rating %>
-    <p>
-      <b>Rating:</b>
-      <%= @order.rating %>
-    </p>
-  <% end %>
-
-  <p>
-    <b>Table:</b>
-    <%= @order.table.number %>
-  </p>
-
-  <br />
-<% end %>
-
-
-<b>Dishes</b>
 <table style="width: 100%; font-size: 15px;">
   <tr>
     <td><strong>Dish Name</strong></td>
@@ -66,3 +36,24 @@
     </tr>
   <% end %>
 </table>
+
+<div class="order-buttons">
+	<% if current_user.waiter? || current_user.admin? %>
+	  <% if @order.is_payed? and @order.is_open? %>
+	    <div class="button"><%= link_to "Close", "/mark_as_closed?order_id=#{@order.id}" %></div>
+	  <% elsif OrderDish.where(:order_id => @order.id, :dish_status => Constant::DS_CHECK).any? %>
+	    <div class="button"><%= link_to "Pay", "/mark_as_payed?id=#{@order.id}" %></div>
+	  <% end %>
+	  <div class="button"><%= link_to "Edit", "/menu/#{@order.table.qr_code}" %></div>
+	<% end %>
+</div>
+
+<div class="totals">
+		<% if !@order.is_open? %>
+  		</p><strong>Closed at:</strong><%= @order.closed_at %></p>
+  	<% end %>
+  	<p><strong>Table:</strong> <%= @order.table.number %></p>
+		<p><strong>Total Sum: <%= @order.calculate_total_sum %></strong></p>
+</div>
+
+</div>

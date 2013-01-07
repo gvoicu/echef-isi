@@ -13,7 +13,7 @@ table, th, td
   text-align: center;
 }
 
-table tr + tr{
+table tr + tr, table tbody > tr{
   border-top: 1px solid black; 
 }
 
@@ -2259,6 +2259,10 @@ margin-bottom:10px;
 
 .order-buttons{
   text-align: right;
+}
+
+.order-buttons .button{
+  display: inline-block;
 }
 
 .order-buttons .button a{
