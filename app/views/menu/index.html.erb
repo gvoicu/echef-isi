@@ -32,6 +32,7 @@
 	                      <!-- Content -->
 	                      <table>
 							  <tr>
+							  	<th></th>
 							  	<th>Name</th>
 							    <th>Ingredients</th>
 							    <th>Grams</th>
@@ -45,6 +46,7 @@
 							  </tr>
 							  <% Dish.where(:dish_type_id => dish_type.id).each do |dish| %>
 								  <tr>
+								  	<td><%= image_tag dish.photo.url(:medium) %></td>
 								  	<td><%= dish.name %></td>
 								    <td><%= dish.ingredients %></td>
 								    <td><%= dish.grams %></td>
