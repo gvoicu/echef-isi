@@ -18,8 +18,6 @@ Echef::Application.routes.draw do
   match "/change_order_time" => "orders#change_order_time"
 
   get "users/profile"
-  match "/users/:id/edit" => "users#edit"
-  match "/users/:id" => "users#show", :as => :user
 
   match "/contact" => "pages#contact"
   match "/gallery" => "pages#gallery"
@@ -49,15 +47,20 @@ Echef::Application.routes.draw do
 
   resources :tables
 
+  match "/users/:id/edit" => "users#edit", :via => [:get]
+  match "/users/:id" => "users#update", :via => [:put]
+  match "/users/:id" => "users#show", :as => :user, :via => [:get]
+
   devise_for :users, :skip => [:registrations]
     as :user do
-      get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
-      put 'users' => 'devise/registrations#update', :as => 'user_registration'
+      #get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
+      # put 'users' => 'devise/registrations#update', :as => 'user_registration'
       get 'users' => 'users/admin#show', :as => 'users'
       delete 'users/:id' => 'users/admin#destroy'
       get 'user/new' => 'users/admin#new', :as => 'new_user'
       post 'users' => 'users/admin#create'
     end
+
   resources :dishes
 
   resources :dish_types

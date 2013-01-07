@@ -19,7 +19,7 @@
     	<%= 'Waiter' if user.waiter? %>
     	<%= 'Chef' if user.chef? %>
     </td>
-    <td><%= link_to 'Edit', '/users/#{user.id}/edit' %></td>
+    <td><%= link_to 'Edit', "/users/#{ user.id }/edit" %></td>
     <td><%= link_to 'Destroy', '/users/%s' % user.id , method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  
-  def profile   
+
+  def profile
   end
 
   def edit
@@ -10,7 +10,14 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    user.update_attributes(params[:user])
+    if params[:user][:password].present?
+      @user.update_attributes(:username => params[:user][:username], :name => params[:user][:name],
+                              :password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation],
+                              :u_type => params[:user][:u_type])
+    else
+      @user.update_attributes(:username => params[:user][:username], :name => params[:user][:name],
+                              :u_type => params[:user][:u_type])
+    end
 
     redirect_to "/users/#{@user.id}/edit"
   end
