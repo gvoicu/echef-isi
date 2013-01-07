@@ -44,9 +44,9 @@
 							    	<th></th>
 							    <% end %>
 							  </tr>
-							  <% Dish.where(:dish_type_id => dish_type.id).each do |dish| %>
+							  <% Dish.where(:dish_type_id => dish_type.id).order("name ASC").each do |dish| %>
 								  <tr>
-								  	<td><%= image_tag dish.photo.url(:medium) %></td>
+								  	<td><%= image_tag dish.photo.url(:small) %></td>
 								  	<td><%= dish.name %></td>
 								    <td><%= dish.ingredients %></td>
 								    <td><%= dish.grams %></td>
@@ -54,6 +54,9 @@
 								    <td><%= dish.time %></td>
 								    <% if @order %>
 								    	<td><div class="button"><%= link_to 'Add', 'order/add/%s' % dish.id, :class => 'add-in-order', :method => :post, :remote => true %></div></td>
+								   	<% end %>
+								   	<% if user_signed_in? and current_user.admin? %>
+								   		<td><div class="button"><%= link_to 'Edit', edit_dish_path(dish), :target => "_blank" %></div></td>
 								   	<% end %>
 								  </tr>
 								<% end %>

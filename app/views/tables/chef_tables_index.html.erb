@@ -11,6 +11,7 @@
   </tr>
 
 <% @tables.each do |table| %>
+	<% active_orders = table.get_active_orders %>
   <tr>
     <td><%= table.number %></td>
     <td>
@@ -20,6 +21,13 @@
     	<% end %>
     </td>
     <td><%= table.persons %></td>
+    <td>
+  		<% if active_orders.present? %>
+  			<% active_orders.each do |order| %>
+          		<p><%= link_to "Order #{order.id}", "/orders/#{order.id}" %></p>
+        	<% end %>
+  		<% end %>	
+    </td>
     <td><%= link_to 'Show', table %></td>
     <td><%= link_to 'Edit', edit_table_path(table) %></td>
     <td><%= link_to 'Destroy', table, method: :delete, data: { confirm: 'Are you sure?' } %></td>
