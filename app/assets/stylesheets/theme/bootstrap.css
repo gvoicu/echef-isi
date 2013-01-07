@@ -3167,6 +3167,7 @@ input[type="submit"].btn.btn-mini {
   -webkit-border-radius: 5px;
   border: solid 1px #CCC;
    box-shadow: 0 0 3px #AAAAAA;
+   margin-bottom: 10px;
 }
 .tabbable:before,
 .tabbable:after {

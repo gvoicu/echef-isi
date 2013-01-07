@@ -35,7 +35,7 @@
 								  <% @order_dishes.each do |dish| %>
 								    <% mDish = dish.dish %>
 								    <% @total += mDish.price %>
-								    <tr>
+								    <tr tag="<%= dish.id %>">
 								    	<td><%= link_to image_tag(mDish.photo.url, :style => 'width: 100px;'), mDish.photo.url, :target => "_blank" %></td>
 								      <td><%= mDish.name %></td>
 								      <% if dish.dish_status == Constant::DS_PREPARING %>
@@ -48,7 +48,7 @@
 								      <% if dish.is_pending? %>
 								        <% @to_send = 1 %>
 								        <td><%= "pending" %></td>
-								        <td><%= link_to 'Remove', 'order/remove/%s' % dish.id, method: :delete %></td>
+								        <td><%= link_to 'Remove', 'order/remove/%s' % dish.id, method: :delete, :remote => true, :confirm => "Are you sure you want to remove '%s' from your order?" % mDish.name %></td>
 								      <% elsif dish.is_preparing? %>
 								        <% @sent = 1 %>
 								        <td class="check"><%= "preparing" %></td>
@@ -77,11 +77,11 @@
 									<div class="order-buttons">
 										<% if !@sent.nil? && @to_send == 1%>
 											<div class="button">
-												<%= link_to 'Update Order', 'order/send', method: :post %>
+												<%= link_to 'Update Order', 'order/send', method: :post, :confirm => "Are you sure you want to add the new dishes to your order?" %>
 											</div>
 										<% elsif @to_send == 1 %>
 											<div class="button">
-												<%= link_to 'Send Order', 'order/send', method: :post %>
+												<%= link_to 'Send Order', 'order/send', method: :post, :confirm => "Are you sure you want to place the order?" %>
 											</div>
 										<% end %>
 										
@@ -92,11 +92,11 @@
 										<% end %>
 									</div>
 									
-									Subtotal: <span id="subtotal"><%= @subtotal %></span>
-									<br/>
-									On Check: <span id="on-check"><%= @on_check %></span>
-									<br/>
-									Total: <span id="total"><%= @total %></span>
+									<div class="totals">
+										<p><strong>Subtotal:</strong> <span id="subtotal"><%= @subtotal %></span></p>
+										<p><strong>On Check:</strong> <span id="on-check"><%= @on_check %></span></p>
+										<p><strong>Total:</strong> <span id="total"><%= @total %></span></p>
+									</totals>
 					</div>									
 				</div>
 			</div>

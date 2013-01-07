@@ -56,7 +56,7 @@
 								    <td><%= dish.price %></td>
 								    <td><%= dish.time %></td>
 								    <% if @order %>
-								    	<td><div class="button"><%= link_to 'Add', 'order/add/%s' % dish.id, :class => 'add-in-order', :method => :post, :remote => true %></div></td>
+								    	<td><div class="button"><%= link_to 'Add', 'order/add/%s' % dish.id, :class => 'add-in-order', :method => :post, :remote => true, :tag => dish.id, :confirm => "Are you sure you want to add '%s' to your order?" % dish.name %></div></td>
 								   	<% end %>
 								   	<% if user_signed_in? and current_user.admin? %>
 								   		<td><div class="button"><%= link_to 'Edit', edit_dish_path(dish), :target => "_blank" %></div></td>

@@ -43,9 +43,7 @@ class MenuController < ApplicationController
   end
 
   # Add dish to order.
-  def add
-    render :nothing => true 
-
+  def add 
     if session[:order_id]
       dish = Dish.find(params[:dish_id])
 
@@ -61,9 +59,9 @@ class MenuController < ApplicationController
       order_dish.save
     end
 
-   # respond_to do |format|
-    #  format.html { redirect_to '/menu'}
-   # end
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

@@ -27,7 +27,7 @@ class OrderController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to '/order'}
+      format.js
     end
   end
 
