@@ -1,8 +1,7 @@
-<%= form_for(@complaint) do |f| %>
-  <% if @complaint.errors.any? %>
+<%= form_for @complaint, :html => {:class => 'horizontal-form'} do |f| %>
+	
+	<% if @complaint.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@complaint.errors.count, "error") %> prohibited this complaint from being saved:</h2>
-
       <ul>
       <% @complaint.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -11,23 +10,38 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <!-- Name -->
+  <div class="control-group">
+    <label class="control-label" for="name">Name</label>
+    <div class="controls">
+    	<%= f.text_field :name, :class => 'input-xlarge', :id => 'name' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
+  <!-- Email -->
+  <div class="control-group">
+    <label class="control-label" for="email">Email</label>
+    <div class="controls">
+      <%= f.text_field :email, :class => 'input-xlarge', :id => 'email' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :phone %><br />
-    <%= f.text_field :phone %>
+  <!-- Phone -->
+  <div class="control-group">
+    <label class="control-label" for="website">Phone</label>
+    <div class="controls">
+      <%= f.text_field :phone, :class => 'input-xlarge', :id => 'phone' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :body %><br />
-    <%= f.text_field :body %>
+  <!-- Comment -->
+  <div class="control-group">
+    <label class="control-label" for="comment">Comment</label>
+    <div class="controls">
+      <%= f.text_area :body, :class => 'input-xplarge', :id => 'body', :rows => 5 %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <!-- Buttons -->
+  <div class="form-actions">
+     <!-- Buttons -->
+    <button type="submit" class="btn">Submit<% f.submit %></button>
+    <button type="reset" class="btn">Reset</button>
   </div>
 <% end %>
