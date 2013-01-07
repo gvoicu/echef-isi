@@ -36,13 +36,26 @@
   <br />
 <% end %>
 
-<p>
-  <b>Dishes</b>
-  <ul>
-    <% @order.dishes.each do |dish| %>
-      <li>
-        <%= dish.name %> | <%= raw display_dish_action(@order, dish) %>
-      </li>
-    <% end %>
-  </ul>
-</p>
+
+<b>Dishes</b>
+<table>
+  <% @order_dishes.each do |order_dish| %>
+    <tr>
+      <td>
+        <%= order_dish.dish.name %>
+      </td>
+      <td>
+        <%= raw display_dish_action(order_dish) %>
+      </td>
+      <% if current_user.chef? %>
+        <td style="padding-top: 5px;">
+          <%= form_tag ({:action => "change_order_time"}), ({:remote => true}) do %>
+            <%= number_field_tag :time, order_dish.time, :min => 1, :style => "width: 40px;" %>
+            <%= hidden_field_tag :id, order_dish.id %>
+            <%= submit_tag :change %>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

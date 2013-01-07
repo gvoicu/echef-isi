@@ -1,7 +1,5 @@
 module OrdersHelper
-  def display_dish_action(order, dish)
-    order_dish = OrderDish.where(:order_id => order.id, :dish_id => dish.id).first
-
+  def display_dish_action(order_dish)
     if order_dish.is_pending?
       link_to "Mark as preparing", "/mark_dishes_as_preparing?order_dish_id=#{order_dish.id}"
     elsif order_dish.is_preparing?

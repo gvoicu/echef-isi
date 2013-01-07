@@ -15,6 +15,7 @@ Echef::Application.routes.draw do
   match "/order" => "order#index"
 
   match "/mark_as_payed" => "orders#mark_as_payed"
+  match "/change_order_time" => "orders#change_order_time"
 
   get "users/profile"
 

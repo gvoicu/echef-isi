@@ -14,6 +14,7 @@ class OrdersController < ApplicationController
   # GET /orders/1.json
   def show
     @order = Order.find(params[:id])
+    @order_dishes = @order.order_dishes.includes(:dish).order("order_dishes.time")
 
     respond_to do |format|
       format.html # show.html.erb
@@ -86,12 +87,21 @@ class OrdersController < ApplicationController
 
   def mark_as_payed
     order = Order.find(params[:id])
-    
     order.pay()
 
     respond_to do |format|
       format.html { redirect_to "/orders/#{order.id}" }
       format.js
+    end
+  end
+
+  def change_order_time
+    order_dish = OrderDish.find(params[:id])
+    order_dish.update_attributes(:time => params[:time])
+
+    respond_to do |format|
+      format.html { redirect_to "/orders/#{order_dish.order_id}" }
+      format.js { "1".to_json }
     end
   end
 end
