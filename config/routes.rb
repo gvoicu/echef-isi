@@ -18,6 +18,8 @@ Echef::Application.routes.draw do
   match "/change_order_time" => "orders#change_order_time"
 
   get "users/profile"
+  match "/users/:id/edit" => "users#edit"
+  match "/users/:id" => "users#show", :as => :user
 
   match "/contact" => "pages#contact"
   match "/gallery" => "pages#gallery"
@@ -42,15 +44,15 @@ Echef::Application.routes.draw do
   match "/notifications/refresh" => "notifications#refresh"
 
   resources :notifications
-  
+
   match "/mark_noti_as_done" => "notifications#mark_as_done"
 
   resources :tables
 
-  devise_for :users, :skip => [:registrations]                                          
+  devise_for :users, :skip => [:registrations]
     as :user do
-      get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
-      put 'users' => 'devise/registrations#update', :as => 'user_registration' 
+      get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
+      put 'users' => 'devise/registrations#update', :as => 'user_registration'
       get 'users' => 'users/admin#show', :as => 'users'
       delete 'users/:id' => 'users/admin#destroy'
       get 'user/new' => 'users/admin#new', :as => 'new_user'
