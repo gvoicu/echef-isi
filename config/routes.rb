@@ -42,20 +42,25 @@ Echef::Application.routes.draw do
   match "/notifications/refresh" => "notifications#refresh"
 
   resources :notifications
-  
+
   match "/mark_noti_as_done" => "notifications#mark_as_done"
 
   resources :tables
 
-  devise_for :users, :skip => [:registrations]                                          
+  match "/users/:id/edit" => "users#edit", :via => [:get]
+  match "/users/:id" => "users#update", :via => [:put]
+  match "/users/:id" => "users#show", :as => :user, :via => [:get]
+
+  devise_for :users, :skip => [:registrations]
     as :user do
-      get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
-      put 'users' => 'devise/registrations#update', :as => 'user_registration' 
+      #get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
+      # put 'users' => 'devise/registrations#update', :as => 'user_registration'
       get 'users' => 'users/admin#show', :as => 'users'
       delete 'users/:id' => 'users/admin#destroy'
       get 'user/new' => 'users/admin#new', :as => 'new_user'
       post 'users' => 'users/admin#create'
     end
+
   resources :dishes
 
   resources :dish_types

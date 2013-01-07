@@ -1,0 +1,27 @@
+<%= link_to "Back", "/users" %>
+
+<%= form_for @user do |f| %>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+
+  <%= f.label :username %>
+  <%= f.text_field :username %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %>
+
+  <%= f.label :u_type %>
+  <%= f.select :u_type, "<option value='1'>Administrator</option><option value='3'>Chef</option><option value='2'>Waiter</option>".html_safe %>
+
+  <%= hidden_field_tag "id", @user.id %>
+
+  <br />
+
+  <%= f.submit :Update %>
+<% end %>
