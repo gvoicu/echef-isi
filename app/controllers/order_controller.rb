@@ -75,9 +75,9 @@ class OrderController < ApplicationController
   def request_check
     order = Order.find(session[:order_id])
 
-    notif = Notification.new
-    notif.table_id = order.table_id
-    notif.save
+    #notif = Notification.new
+    #notif.table_id = order.table_id
+    #notif.save
 
     @total    = 0
     @subtotal = 0

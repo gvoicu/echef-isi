@@ -94,6 +94,16 @@ class OrdersController < ApplicationController
       format.js
     end
   end
+  
+  def mark_as_closed
+    order = Order.find(params[:order_id])
+    order.close()
+
+    respond_to do |format|
+      format.html { redirect_to "/orders/#{order.id}" }
+      format.js
+    end
+  end
 
   def change_order_time
     order_dish = OrderDish.find(params[:id])

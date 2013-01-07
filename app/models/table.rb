@@ -7,7 +7,7 @@ class Table < ActiveRecord::Base
   default_scope :order => "id ASC"
 
   def get_active_orders
-    self.orders.find_all{ |o| !o.is_payed? }
+    self.orders.find_all{ |o| o.is_open? }
   end
 
   def has_notification?

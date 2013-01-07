@@ -5,8 +5,11 @@ class MenuController < ApplicationController
 
      if session[:order_id]
       @order = Order.find_by_id(session[:order_id])
-      if @order
+      if @order && @order.is_open?
         @notif = Notification.find_by_table_id(@order.table_id)
+      else
+        session[:order_id] = nil
+        @order = nil
       end
      end
 

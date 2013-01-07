@@ -92,8 +92,21 @@ class NotificationsController < ApplicationController
   end
   
   def count
-    @notifications = Notification.where(:status => false)
+    @notifications = Notification.all
     @notifications = @notifications.count
+    
+    if user_signed_in? and current_user.chef?
+      
+      orderDishes = OrderDish.where("dish_status = ?", Constant::DS_PREPARING).select(:order_id).uniq
+      @notifications = @notifications + orderDishes.count
+      
+    elsif user_signed_in? and current_user.waiter?
+      orderDishes = OrderDish.where("dish_status = ?", Constant::DS_READY).select(:order_id).uniq
+      @notifications = @notifications + orderDishes.count
+      
+      orderDishes = OrderDish.where("dish_status = ?", Constant::DS_CHECK).select(:order_id).uniq
+      @notifications = @notifications + orderDishes.count
+    end
     
     render :layout => false
   end

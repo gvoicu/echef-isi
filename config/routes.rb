@@ -63,6 +63,7 @@ Echef::Application.routes.draw do
   match "/mark_dishes_as_preparing" => "dishes#mark_dishes_as_preparing"
   match "/mark_dishes_as_ready" => "dishes#mark_dishes_as_ready"
   match "/mark_dishes_as_delivered" => "dishes#mark_dishes_as_delivered"
+  match "/mark_as_closed" => "orders#mark_as_closed"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
