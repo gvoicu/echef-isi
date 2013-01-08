@@ -9,7 +9,7 @@
     <td><strong>Dish Name</strong></td>
     <td><strong>Dish Status</strong></td>
     <td><strong>Remaining Time</strong></td>
-    <% if current_user.chef? %>
+    <% if current_user and current_user.chef? %>
       <td><strong>New Time</strong></td>
     <% end %>
   </tr>
@@ -24,10 +24,14 @@
         <%= raw display_dish_action(order_dish) %>
       </td>
        <td id="order_dish-<%= order_dish.id %>">
-        <%= ((order_dish.updated_at + order_dish.time.minutes - Time.now)/60).floor %>
+       	<% if order_dish.dish_status == Constant::DS_PREPARING %>
+        	<%= ((order_dish.updated_at + order_dish.time.minutes - Time.now)/60).floor %>
+        <% else %>
+        	-
+        <% end %>
       </td>
 
-      <% if current_user.chef? %>
+      <% if current_user and current_user.chef? %>
         <td style="font-size: 15px;">
           <%= form_tag ({:action => "change_order_time"}), ({:remote => true, :style => "margin-top: 20px;"}) do %>
             <%= number_field_tag :time, (((order_dish.updated_at + order_dish.time.minutes - Time.now)/60).floor), :min => 1, :style => "width: 40px;" %>
@@ -41,7 +45,7 @@
 </table>
 
 <div class="order-buttons">
-	<% if current_user.waiter? || current_user.admin? %>
+	<% if current_user and (current_user.waiter? || current_user.admin?) %>
 	  <% if @order.is_payed? and @order.is_open? %>
 	    <div class="button"><%= link_to "Close", "/mark_as_closed?order_id=#{@order.id}" %></div>
 	  <% elsif OrderDish.where(:order_id => @order.id, :dish_status => Constant::DS_CHECK).any? %>
