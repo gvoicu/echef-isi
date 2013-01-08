@@ -9,6 +9,8 @@
     <th>Email</th>
     <th>Name</th>
     <th>Type</th>
+    <th>Created at</th>
+    <th>Last sign in</th>
     <th></th>
     <th></th>
     <th></th>
@@ -25,6 +27,8 @@
     	<%= 'Waiter' if user.waiter? %>
     	<%= 'Chef' if user.chef? %>
     </td>
+    <td><%= user.created_at %></td>
+    <td><%= user.last_sign_in_at ? user.last_sign_in_at : '-' %></td>
     <td><%= link_to 'Edit', "/users/#{ user.id }/edit" %></td>
     <td><%= link_to 'Delete', '/users/%s' % user.id , method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>

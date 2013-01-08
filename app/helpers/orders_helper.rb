@@ -10,8 +10,12 @@ module OrdersHelper
       else
         "<b>Is ready</b>"
       end
-    else
+    elsif order_dish.is_delivered?
       "<b>Delivered</b>"
+    elsif order_dish.is_check?
+      "<b>Checked</b>"
+    elsif order_dish.is_payed?
+      "<b>Payed</b>"
     end
   end
 

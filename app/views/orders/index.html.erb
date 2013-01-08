@@ -11,9 +11,6 @@
 	    <th>Closed at</th>
 	    <th>Table</th>
 	    <th>Total</th>
-	    <th></th>
-	    <th></th>
-	    <th></th>
 	  </tr>
   </thead>
 
@@ -30,6 +27,7 @@
       	end %>
       	<%= total %>
       </td>
+      <td><%= link_to "View", "orders/#{order.id}" %></td>
     </tr>
   <% end %>
 </table>

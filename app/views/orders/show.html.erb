@@ -4,6 +4,7 @@
 	<hr/>
 
 <table style="width: 100%; font-size: 15px;">
+	<thead>
   <tr>
     <td><strong>Dish Name</strong></td>
     <td><strong>Dish Status</strong></td>
@@ -12,6 +13,8 @@
       <td><strong>New Time</strong></td>
     <% end %>
   </tr>
+  </thead>
+  
   <% @order_dishes.each do |order_dish| %>
     <tr>
       <td>
@@ -44,7 +47,9 @@
 	  <% elsif OrderDish.where(:order_id => @order.id, :dish_status => Constant::DS_CHECK).any? %>
 	    <div class="button"><%= link_to "Pay", "/mark_as_payed?id=#{@order.id}" %></div>
 	  <% end %>
-	  <div class="button"><%= link_to "Edit", "/menu/#{@order.table.qr_code}" %></div>
+	  <% if @order.is_open? %>
+		  <div class="button"><%= link_to "Edit", "/menu/#{@order.table.qr_code}" %></div>
+	  <% end %>
 	<% end %>
 </div>
 
