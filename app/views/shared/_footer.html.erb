@@ -13,24 +13,22 @@
       <div class="span4">
          <!-- widget 2 -->
          <div class="widget">
-            <h4>Recent Posts</h4>
+            <h4>New Dishes	</h4>
                <ul>
-                  <li><a href="#">Sed eu leo orci, in rhoncus puru condimentum gravida metus</a></li>
-                  <li><a href="#">Etiam at in rhoncus puru nulla ipsum, in rhoncus purus</a></li>
-                  <li><a href="#">Fusce vel magnain rhoncus puru faucibus felis dapibus facilisis</a></li>
+               		<% Dish.order("updated_at DESC").limit(5).each do |dish| %>
+                  	<li><a href="/dish/<%= dish.id %>"><%= dish.name %></a></li>
+                  <% end %>
                </ul>
          </div>
       </div>
       <div class="span4">
          <!-- Widget 3 -->
          <div class="widget">
-            <h4>Categories</h4>
+            <h4>Dish Types</h4>
             <ul>
-               <li><a href="#">Condimentum</a></li>
-               <li><a href="#">Etiam at</a></li>
-               <li><a href="#">Fusce vel</a></li>
-               <li><a href="#">Vivamus</a></li>
-               <li><a href="#">Pellentesque</a></li>
+            	<% DishType.order("name ASC").each do |dishType| %>
+               <li><a href="/menu#tab<%= dishType.id %>"><%= dishType.name %></a></li>
+              <% end %>
             </ul>
          </div>
       </div>
