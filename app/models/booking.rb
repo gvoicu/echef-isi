@@ -1,11 +1,11 @@
 class Booking < ActiveRecord::Base
   belongs_to :table
   attr_accessible :confirmed, :email, :end, :name, :phone, :start, :table
-  attr_accessible :start, :start_at_date, :start_at_time
-  attr_accessible :end, :end_at_date, :end_at_time
+  attr_accessible :start, :start_date, :start_at_time
+  attr_accessible :end, :end_at_time
   
-  attr_accessor :start_at_date, :start_at_time
-  attr_accessor :end_at_date, :end_at_time
+  attr_accessor :start_date, :start_at_time
+  attr_accessor :end_at_time
   
   after_initialize :get_datetimes # convert db format to accessors
   before_validation :set_datetimes # convert accessors back to db format
@@ -21,16 +21,15 @@ class Booking < ActiveRecord::Base
     self.start ||= Time.now  # if the start_at time is not set, set it to now
     self.end ||= Time.now
 
-    self.start_at_date ||= self.start.to_date.to_s(:db) # extract the date is yyyy-mm-dd format
+    self.start_date ||= self.start.to_date.to_s(:db) # extract the date is yyyy-mm-dd format
     self.start_at_time ||= "#{'%02d' % self.start.hour}:#{'%02d' % self.start.min}" # extract the time
     
-    self.end_at_date ||= self.end.to_date.to_s(:db) # extract the date is yyyy-mm-dd format
     self.end_at_time ||= "#{'%02d' % self.end.hour}:#{'%02d' % self.end.min}" # extract the time
   end
 
   def set_datetimes
-    self.start = "#{self.start_at_date} #{self.start_at_time}:00" # convert the two fields back to db
+    self.start = "#{self.start_date} #{self.start_at_time}:00" # convert the two fields back to db
     
-    self.end = "#{self.end_at_date} #{self.end_at_time}:00" # convert the two fields back to db
+    self.end = "#{self.start_date} #{self.end_at_time}:00" # convert the two fields back to db
   end 
 end

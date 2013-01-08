@@ -31,15 +31,21 @@
 				
 				  <% if !params[:booking] %>
 					  <div class="control-group">
-					    <%= f.label :start, :class => "control-label" %>
+					    <%= f.label "Date", :class => "control-label" %>
 					    <div class="controls book">
-					    	<%= f.text_field :start_at_date, :class => 'datepicker', :size => 10, :maxlength => 10 %> <%= f.text_field :start_at_time, :size => 5, :maxlength => 5 %>
+					    	<%= f.text_field :start_date, :class => 'datepicker', :size => 10, :maxlength => 10 %>
 					   	</div>
 					  </div>
 					  <div class="control-group">
-					    <%= f.label :end, :class => "control-label" %>
+					    <%= f.label "Start time", :class => "control-label" %>
 					    <div class="controls book">
-					    	<%= f.text_field :end_at_date, :class => 'datepicker', :size => 10, :maxlength => 10 %> <%= f.text_field :end_at_time, :size => 5, :maxlength => 5 %>
+					    	<%= f.text_field :start_at_time, :size => 5, :maxlength => 5 %>
+					   	</div>
+					  </div>
+					  <div class="control-group">
+					    <%= f.label "End time", :class => "control-label" %>
+					    <div class="controls book">
+					    	<%= f.text_field :end_at_time, :size => 5, :maxlength => 5 %>
 					   	</div>
 					  </div>
 					  

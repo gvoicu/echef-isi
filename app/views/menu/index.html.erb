@@ -83,5 +83,7 @@
 		});
 		
 		$('.nav-tabs li:first-child a').trigger('click');
+		
+		$('.nav-tabs li a[href="' + document.location.hash + '"]').trigger('click');
 	});
 </script>
