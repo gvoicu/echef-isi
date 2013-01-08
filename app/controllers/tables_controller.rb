@@ -94,9 +94,7 @@ class TablesController < ApplicationController
   end
   
   def change_qr
-    table = Table.find(params[:table_id])
-    table.qr_code = SecureRandom.hex(5)
-    table.save
+    table = Table.find(params[:table_id]).update(:qr_code => SecureRandom.hex(5))
     
     respond_to do |format|
       format.html {redirect_to '/tables'}
