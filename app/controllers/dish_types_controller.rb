@@ -2,7 +2,7 @@ class DishTypesController < ApplicationController
   # GET /dish_types
   # GET /dish_types.json
   def index
-    @dish_types = DishType.all
+    @dish_types = DishType.order("name ASC")
 
     respond_to do |format|
       format.html # index.html.erb

@@ -19,6 +19,14 @@
 	                  <% end %>
 	              </div>
               <% end %>
+              
+              <% if current_user and current_user.admin? %>
+              	<div class="menu-actions">
+              			<%= link_to "Dish Types", dish_types_path %>
+              			|
+              			<span><%= link_to "New Dish", new_dish_path %></span>
+              	</div>
+              <% end %>
 				
                 <div class="tabbable tabs-left">
                 		<h3>Dishes</h3>

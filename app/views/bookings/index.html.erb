@@ -12,7 +12,7 @@
 	    <th>Email</th>
 	    <th>Phone</th>
 	    <th>Table</th>
-	    <% if current_user && current_user.admin? %>
+	    <% if current_user && (current_user.admin? || current_user.waiter?) %>
 		    <th></th>
 		    <th></th>
 	    <% end %>
@@ -26,7 +26,7 @@
     <td><%= booking.email %></td>
     <td><%= booking.phone %></td>
     <td><%= booking.table.number %></td>
-    <% if current_user && current_user.admin? %>
+    <% if current_user && (current_user.admin? || current_user.waiter?) %>
     	<td><%= link_to 'Edit', edit_booking_path(booking) %></td>
     	<td><%= link_to 'Delete', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     <% end %>

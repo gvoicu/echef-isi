@@ -18,6 +18,7 @@
               	<li><%= link_to("Menu", menu_path, :method => :get)%></li>
               	<li><%= link_to("Tables", tables_path, :method => :get) %></li>
               	<li><%= link_to("Users", users_path, :method => :get) %></li>
+              	<li><%= link_to("Complaints", complaints_path, :method => :get) %></li>
               	<li><%= link_to("Sign out", destroy_user_session_path, :method => :delete) %></li>
               <% elsif user_signed_in? and current_user.waiter? %>
               	<li><%= link_to("Bookings", bookings_path, :method => :get) %></li>
