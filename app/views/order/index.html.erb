@@ -36,7 +36,7 @@
 								
 								  <% @order_dishes.each do |dish| %>
 								    <% mDish = dish.dish %>
-								    <% @total += mDish.price %>
+								    <% @total = @total + mDish.price %>
 								    <tr tag="<%= dish.id %>">
 								    	<td><%= link_to image_tag(mDish.photo.url, :style => 'width: 100px;'), mDish, :target => "_blank" %></td>
 								      <td><%= mDish.name %></td>
@@ -95,9 +95,9 @@
 									</div>
 									
 									<div class="totals">
-										<p><strong>Subtotal:</strong> <span id="subtotal"><%= @subtotal %></span></p>
-										<p><strong>On Check:</strong> <span id="on-check"><%= @on_check %></span></p>
-										<p><strong>Total:</strong> <span id="total"><%= @total %></span></p>
+										<p><strong>Subtotal:</strong> <span id="subtotal"><%= "%10.2f" % @subtotal %></span></p>
+										<p><strong>On Check:</strong> <span id="on-check"><%= "%10.2f" % @on_check %></span></p>
+										<p><strong>Total:</strong> <span id="total"><%= "%10.2f" % @total %></span></p>
 									</totals>
 					</div>									
 				</div>

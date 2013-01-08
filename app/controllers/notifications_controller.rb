@@ -92,27 +92,42 @@ class NotificationsController < ApplicationController
   end
   
   def count
-    @notifications = Notification.all
-    @notifications = @notifications.count
+    @notifications = 0
     
-    if user_signed_in? and current_user.chef?
+    if current_user and current_user.waiter?
+      @notifications = @notifications + Notification.all.count
+    end
+    
+    if current_user and current_user.chef?
       
-      orderDishes = OrderDish.where("dish_status = ?", Constant::DS_PREPARING).select(:order_id).uniq
-      @notifications = @notifications + orderDishes.count
+      orderDishes = OrderDish.select(:order_id).where("dish_status = ?", Constant::DS_PREPARING).uniq
       
-    elsif user_signed_in? and current_user.waiter?
+      for orderDish in orderDishes do
+        @notifications = @notifications + 1
+      end
+      
+    elsif current_user and current_user.waiter?
       orderDishes = OrderDish.where("dish_status = ?", Constant::DS_READY).select(:order_id).uniq
-      @notifications = @notifications + orderDishes.count
+      for orderDish in orderDishes do
+        @notifications = @notifications + 1
+      end
       
       orderDishes = OrderDish.where("dish_status = ?", Constant::DS_CHECK).select(:order_id).uniq
-      @notifications = @notifications + orderDishes.count
+      for orderDish in orderDishes do
+        @notifications = @notifications + 1
+      end
     end
     
     render :layout => false
   end
   
   def refresh
-    @notifications = Notification.all
+    @notifications = Array.new
+    
+    if user_signed_in? and current_user.waiter?
+      @notifications = Notification.all
+    end
+    
     @orderNotifications = Array.new
     
     # Daca e chelner
